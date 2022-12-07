@@ -1,0 +1,14 @@
+
+git add .
+git commit -m "commit"
+git push –set-upstream origin main
+
+git push -u origin [branch]
+
+
+git status : to see status
+git clone [url] : Clone (download) a repository that already exists on GitHub, 
+                    including all of the files, branches, and commits.
+git pull : Updates your current local working branch with all new commits 
+            from the corresponding remote branch on GitHub
+

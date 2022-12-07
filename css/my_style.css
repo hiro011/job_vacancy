@@ -1,0 +1,55 @@
+
+.btn-del{
+	cursor: pointer;
+	border: 1px solid red;
+	background-color: orange;
+	border-radius: 10%;
+	color: red;
+}
+.btn-del:hover{
+	transition: 0.3;
+	outline-color: transparent;
+	text-decoration: underline;
+	opacity: 0.7;
+}
+.btn-del:active{
+	background-color: red;
+}
+.active{
+	border: 1px solid lightblue;
+	background-color: grey;
+	border-radius: 3px;
+}
+table{
+	border-color: #3bbfeb;
+}
+ 
+.h-op-75:hover{
+	opacity: 0.75;
+}
+.pointer{
+	cursor: pointer;
+} 
+.text-center{
+	text-align: center;
+}
+.c-green{
+	color: green
+}
+.search{
+	border: 2px solid lightblue;
+	border-radius: 3px;
+}
+.btn{
+	border: 1px solid lightblue;
+	background-color: green;
+}
+.btn:hover{
+	color: blue;
+	border: 1px solid lightblue;
+	transition: 0.3;
+	background-color: green;
+	opacity: .7;
+}
+ 
+    
