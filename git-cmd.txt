@@ -1,7 +1,7 @@
 
 git add .
 git commit -m "commit"
-git push –set-upstream origin main
+git push –set-upstream origin [branch]
 
 git push -u origin [branch]
 

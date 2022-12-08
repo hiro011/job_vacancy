@@ -62,6 +62,9 @@
                                 <option value="permanent">Permanent</option>
                                 <option value="intern">Intern</option>
                                 <option value="contractual">Contractual</option>
+                                <option value="freelance">Freelance</option>
+                                <option value="Remote-Permanent">Remote Permanent</option>
+                                <option value="Remote-contract">Remote Contract</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>
@@ -73,6 +76,7 @@
                                 <option value="none" disabled selected>Work place</option>
                                 <option value="Addis Ababa">Addis Ababa</option>
                                 <option value="Adama">Adama</option>
+                                <option value="Remote">Remote</option>
                                 <option value="other">Other</option>
                             </select>
                         </div>

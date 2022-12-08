@@ -89,45 +89,183 @@
                         if (count($result) > 0) { 
                             foreach ($result as $row) {
                                 $formattedDate = date("d-M-Y", strtotime($row["date"]));
-
                                 $sL = strlen($_POST["search"]); // length of searched key
-                                
-                                $rowWord = $row['posted_in']; // pos = posted_in
-                                $rowWordI = strpos($rowWord, $_POST["search"]); // index of searched key in pos
 
                                 echo "<tr>";
+
+                                // the numbering column --------
                                 echo "<td>" . $number . "</td>"; // incrimented number
+
+                                // the 1st column --------
+                                $rowWord1 = $row['posted_in']; 
+                                $rowWord1I = strpos($rowWord1, $_POST["search"]); // index of searched key in collumn
+                                if($rowWord1I !== false){ // check if index isnot false or there is index value
+                                    echo "<td>";
+                                        // echo all words before the searched key word if exist
+                                        if ($rowWord1I !== 0){
+                                            for ($i = 0; $i < $rowWord1I; $i++) {
+                                                echo $rowWord1[$i];
+                                            }
+                                        }
+                                        // echo the searched key word highligheted 
+                                        echo '<span class="highlight">';
+                                        for ($i = $rowWord1I; $i < ($rowWord1I + $sL); $i++) {
+                                            echo $rowWord1[$i];
+                                        }
+                                        echo '</span>';
+                                        // echo all word after searched key if exist
+                                        if (($rowWord1I + $sL) < strlen($rowWord1)){ 
+                                            for ($i = ($rowWord1I + $sL); $i < strlen($rowWord1); $i++) {
+                                                echo $rowWord1[$i];
+                                            }
+                                        }
+                                    echo "</td>";
+
+                                } else echo "<td>" . $rowWord1 . "</td>";
                                 
-                                // the 1st column
-                                if($rowWordI !== false){ // check if index isnot false or there is index value
+                                // the 2nd column --------
+                                $rowWord2 = $row['company']; 
+                                $rowWord2I = strpos($rowWord2, $_POST["search"]); // index of searched key in pos
+                                if($rowWord2I !== false){ // check if index isnot false or there is index value
                                     echo "<td>";
-                                    // echo all words before the searched key word
-                                    if ($rowWordI !== 0){
-                                        for ($i = 0; $i < $rowWordI; $i++) {
-                                            echo $rowWord[$i];
+                                        // echo all words before the searched key word
+                                        if ($rowWord2I !== 0){
+                                            for ($i = 0; $i < $rowWord2I; $i++) {
+                                                echo $rowWord2[$i];
+                                            }
                                         }
-                                    }
-                                    // echo the searched key word highligheted 
-                                    echo '<span class="highlight">';
-                                    for ($i = $rowWordI; $i < ($rowWordI + $sL); $i++) {
-                                        echo $rowWord[$i];
-                                    }
-                                    echo '</span>';
-                                    // echo all word after searched key if exist
-                                    if (($rowWordI + $sL) < strlen($rowWord)){
-                                        for ($i = ($rowWordI + $sL); $i < strlen($rowWord); $i++) {
-                                            echo $rowWord[$i];
+                                        // echo the searched key word highligheted 
+                                        echo '<span class="highlight">';
+                                        for ($i = $rowWord2I; $i < ($rowWord2I + $sL); $i++) {
+                                            echo $rowWord2[$i];
                                         }
-                                    }
+                                        echo '</span>';
+                                        // echo all word after searched key if exist
+                                        if (($rowWord2I + $sL) < strlen($rowWord2)){
+                                            for ($i = ($rowWord2I + $sL); $i < strlen($rowWord2); $i++) {
+                                                echo $rowWord2[$i];
+                                            }
+                                        }
+                                    echo "</td>";
+
+                                } else echo "<td>" . $row['company'] . "</td>";
+
+                                // the 3rd column --------
+                                $rowWord3 = $row['position']; 
+                                $rowWord3I = strpos($rowWord3, $_POST["search"]); // index of searched key in pos
+                                if($rowWord3I !== false){ // check if index isnot false or there is index value
                                     echo "<td>";
+                                        // echo all words before the searched key word
+                                        if ($rowWord3I !== 0){
+                                            echo '<span class="c-green">';
+                                            for ($i = 0; $i < $rowWord3I; $i++) {
+                                                echo $rowWord3[$i];
+                                            }
+                                            echo '</span>';
+                                        }
+                                        // echo the searched key word highligheted 
+                                        echo '<span class="highlight">';
+                                        for ($i = $rowWord3I; $i < ($rowWord3I + $sL); $i++) {
+                                            echo $rowWord3[$i];
+                                        }
+                                        echo '</span>';
+                                        // echo all word after searched key if exist
+                                        if (($rowWord3I + $sL) < strlen($rowWord3)){
+                                            echo '<span class="c-green">';
+                                            for ($i = ($rowWord3I + $sL); $i < strlen($rowWord3); $i++) {
+                                                echo $rowWord3[$i];
+                                            }
+                                            echo '</span>';
+                                        }
+                                    echo "</td>";
 
-                                } else echo "<td>" . $rowWord . "</td>";
+                                } else echo "<td class='c-green'>" . $row['position'] . "</td>";
 
-                                echo "<td>" . $row['company'] . "</td>";
-                                echo "<td class='c-green'>" . $row['position'] . "</td>";
-                                echo "<td>" . $row['job_type'] . "</td>";
-                                echo "<td class='c-green'>" . $row['place'] . "</td>";
-                                echo "<td>" . $row['deadline'] . "</td>";
+                                // the 4th column --------
+                                $rowWord4 = $row['job_type']; 
+                                $rowWord4I = strpos($rowWord4, $_POST["search"]); // index of searched key in pos
+                                if($rowWord4I !== false){ // check if index isnot false or there is index value
+                                    echo "<td>";
+                                        // echo all words before the searched key word
+                                        if ($rowWord4I !== 0){
+                                            for ($i = 0; $i < $rowWord4I; $i++) {
+                                                echo $rowWord4[$i];
+                                            }
+                                        }
+                                        // echo the searched key word highligheted 
+                                        echo '<span class="highlight">';
+                                        for ($i = $rowWord4; $i < ($rowWord4I + $sL); $i++) {
+                                            echo $rowWord4[$i];
+                                        }
+                                        echo '</span>';
+                                        // echo all word after searched key if exist
+                                        if (($rowWord4I + $sL) < strlen($rowWord4)){
+                                            for ($i = ($rowWord4I + $sL); $i < strlen($rowWord4); $i++) {
+                                                echo $rowWord4[$i];
+                                            }
+                                        }
+                                    echo "</td>";
+
+                                } else echo "<td>" . $row['job_type'] . "</td>";
+                                
+                                // the 5th column --------
+                                $rowWord5 = $row['place']; 
+                                $rowWord5I = strpos($rowWord5, $_POST["search"]); // index of searched key in collumn
+                                if($rowWord5I !== false){ // check if index isnot false or there is index value
+                                    echo "<td>";
+                                        // echo all words before the searched key word if exist
+                                        if ($rowWord5I !== 0){
+                                            echo '<span class="c-green">';
+                                            for ($i = 0; $i < $rowWord5I; $i++) {
+                                                echo $rowWord5[$i];
+                                            }
+                                            echo '</span>';
+                                        }
+                                        // echo the searched key word highligheted 
+                                        echo '<span class="highlight">';
+                                        for ($i = $rowWord5I; $i < ($rowWord5I + $sL); $i++) {
+                                            echo $rowWord5[$i];
+                                        }
+                                        echo '</span>';
+                                        // echo all word after searched key if exist
+                                        if (($rowWord5I + $sL) < strlen($rowWord5)){ 
+                                            echo '<span class="c-green">';
+                                            for ($i = ($rowWord5I + $sL); $i < strlen($rowWord5); $i++) {
+                                                echo $rowWord5[$i];
+                                            }
+                                            echo '</span>';
+                                        }
+                                    echo "</td>";
+
+                                } else echo "<td class='c-green'>" . $row['place'] . "</td>";
+                                
+                                // the 6th column --------
+                                $rowWord6 = $row['deadline']; 
+                                $rowWord6I = strpos($rowWord6, $_POST["search"]); // index of searched key in collumn
+                                if($rowWord6I !== false){ // check if index isnot false or there is index value
+                                    echo "<td>";
+                                        // echo all words before the searched key word if exist
+                                        if ($rowWord6I !== 0){
+                                            for ($i = 0; $i < $rowWord6I; $i++) {
+                                                echo $rowWord6[$i];
+                                            }
+                                        }
+                                        // echo the searched key word highligheted 
+                                        echo '<span class="highlight">';
+                                        for ($i = $rowWord6I; $i < ($rowWord6I + $sL); $i++) {
+                                            echo $rowWord6[$i];
+                                        }
+                                        echo '</span>';
+                                        // echo all word after searched key if exist
+                                        if (($rowWord6I + $sL) < strlen($rowWord6)){ 
+                                            for ($i = ($rowWord6I + $sL); $i < strlen($rowWord6); $i++) {
+                                                echo $rowWord6[$i];
+                                            }
+                                        }
+                                    echo "</td>";
+
+                                } else echo "<td>" . $row['deadline'] . "</td>";
+                                
                                 echo "<td>" . $formattedDate . "</td>";
                                 echo "<td><a href='/job vacancy/delete.php?id=".$row['id']."' class='btn-del'>Delete </a> </td>";
                                 echo "</tr>";

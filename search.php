@@ -21,18 +21,23 @@
     ]);
     
     // (C) SEARCH
-    $stmt = $pdo->prepare("SELECT * FROM `jobs` WHERE 
-                            `posted_in` LIKE ? OR 
-                            `company` LIKE ? OR 
-                            `position` LIKE ? OR 
-                            `job_type` LIKE ? OR 
-                            `place` LIKE ? OR 
-                            `deadline` LIKE ?"
-                            );
-    $stmt->execute(["%".$_POST["search"]."%", "%".$_POST["search"]."%", "%".$_POST["search"]."%", "%".$_POST["search"]."%", "%".$_POST["search"]."%", "%".$_POST["search"]."%"]);
-    $result = $stmt->fetchAll();
-    if (isset($_POST["ajax"])) { 
-        echo json_encode($result); 
+    if($_POST["search"] == ''){
+        header('Location: home.php');
+		exit;
+    } else {
+        $stmt = $pdo->prepare("SELECT * FROM `jobs` WHERE 
+                                `posted_in` LIKE ? OR 
+                                `company` LIKE ? OR 
+                                `position` LIKE ? OR 
+                                `job_type` LIKE ? OR 
+                                `place` LIKE ? OR 
+                                `deadline` LIKE ?"
+                                );
+        $stmt->execute(["%".$_POST["search"]."%", "%".$_POST["search"]."%", "%".$_POST["search"]."%", "%".$_POST["search"]."%", "%".$_POST["search"]."%", "%".$_POST["search"]."%"]);
+        $result = $stmt->fetchAll();
+        if (isset($_POST["ajax"])) { 
+            echo json_encode($result); 
+        }
     }
 	 
 ?>
