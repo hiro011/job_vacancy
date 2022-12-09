@@ -12,13 +12,26 @@
     <link rel="stylesheet" href="/job vacancy/css/app.css">
     <link rel="stylesheet" href="/job vacancy/css/my_style.css">
     
+    <style>
+        .clr-red{
+            color: red;
+        }
+    </style>
+
 </head>
 
 <body class="flex flex-wrap justify-center bg-blue-100">
 
-    <div class="flex w-full justify-center px-4 bg-purple-900 text-white">
-        <a class="mx-3 my-4" href="/job vacancy/home.php">Home</a>
-        <a class="mx-3 my-4 active" href="/job vacancy/insert.php">New</a>
+    <div class="flex w-full justify-between px-4 bg-purple-900 text-white">
+        <div class="my-4">
+            <a class="mx-3" href="/job vacancy/home.php">Home</a>
+            <a class="mx-3 active" href="/job vacancy/insert.php">New</a>
+        </div>
+        <div >
+            <img src="/job vacancy/img/profile-pic.png" alt="profile img" width="40px" class="mx-3" >
+            <h2 class="mx-2" > <?php session_start(); echo 'Ahmed'; session_destroy() ?> </h2>
+            <a class="mx-2 clr-red" href="/job vacancy/login.php"> Logout </a>
+        </div>
     </div>
     <div class="my-1 w-full flex justify-center">
         <div class="my-10 flex justify-center w-full">

@@ -16,6 +16,9 @@
         .highlight{ /* highlight searched word key */
             color: blue;
         }
+        .clr-red{
+            color: red;
+        }
     </style>
    
 </head>
@@ -27,9 +30,10 @@
             <a class="mx-3 active" href="/job vacancy/home.php">Home</a>
             <a class="mx-3 " href="/job vacancy/insert.php">New</a>
         </div>
-        <div class="my-2">
+        <div >
             <img src="/job vacancy/img/profile-pic.png" alt="profile img" width="40px" class="mx-3" >
-            <a class="mx-3" href="/job vacancy/login.php">Logout</a>
+            <h2 class="mx-2" > <?php session_start(); echo 'Ahmed'; ?> </h2>
+            <a class="mx-2 clr-red" href="/job vacancy/login.php"> Logout </a>
         </div>
     </div>
     <div class="my-10 w-full flex justify-center">
@@ -39,7 +43,7 @@
                 <h1 class="text-center text-3xl my-2">Applied Job Vacancies</h1>
                 <?php
                     // deleted successfully message
-            		session_start();
+            		
                     if(isset($_SESSION['id'])){
                         echo '<div class="flex justify-around my-8">';
                         echo '<div class="p-3 bg-red-300 w-10/12 text-orange-800 rounded shadow-sm text-center">';
