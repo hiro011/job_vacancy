@@ -22,9 +22,15 @@
 
 <body class="flex flex-wrap justify-center bg-blue-100">
 
-    <div class="flex w-full justify-center px-4 bg-purple-900 text-white">
-        <a class="mx-3 my-4 active" href="/job vacancy/home.php">Home</a>
-        <a class="mx-3 my-4" href="/job vacancy/insert.php">New</a>
+    <div class="flex w-full justify-between px-4 bg-purple-900 text-white">
+        <div class="my-4">
+            <a class="mx-3 active" href="/job vacancy/home.php">Home</a>
+            <a class="mx-3 " href="/job vacancy/insert.php">New</a>
+        </div>
+        <div class="my-2">
+            <img src="/job vacancy/img/profile-pic.png" alt="profile img" width="40px" class="mx-3" >
+            <a class="mx-3" href="/job vacancy/login.php">Logout</a>
+        </div>
     </div>
     <div class="my-10 w-full flex justify-center">
                 
@@ -71,7 +77,7 @@
 
                     echo "<table border='1'>
                             <tr>    
-                                <th>No</th>
+                                <th>No-id</th>
                                 <th>Posted In</th>
                                 <th>Company</th>
                                 <th>Position</th>
@@ -94,11 +100,11 @@
                                 echo "<tr>";
 
                                 // the numbering column --------
-                                echo "<td>" . $number . "</td>"; // incrimented number
+                                echo "<td>" . $number . "-". $row['id'] ."</td>"; // incrimented number
 
                                 // the 1st column --------
                                 $rowWord1 = $row['posted_in']; 
-                                $rowWord1I = strpos($rowWord1, $_POST["search"]); // index of searched key in collumn
+                                $rowWord1I = stripos($rowWord1, $_POST["search"]); // index of searched key in collumn
                                 if($rowWord1I !== false){ // check if index isnot false or there is index value
                                     echo "<td>";
                                         // echo all words before the searched key word if exist
@@ -125,7 +131,7 @@
                                 
                                 // the 2nd column --------
                                 $rowWord2 = $row['company']; 
-                                $rowWord2I = strpos($rowWord2, $_POST["search"]); // index of searched key in pos
+                                $rowWord2I = stripos($rowWord2, $_POST["search"]); // index of searched key in pos
                                 if($rowWord2I !== false){ // check if index isnot false or there is index value
                                     echo "<td>";
                                         // echo all words before the searched key word
@@ -152,7 +158,7 @@
 
                                 // the 3rd column --------
                                 $rowWord3 = $row['position']; 
-                                $rowWord3I = strpos($rowWord3, $_POST["search"]); // index of searched key in pos
+                                $rowWord3I = stripos($rowWord3, $_POST["search"]); // index of searched key in pos
                                 if($rowWord3I !== false){ // check if index isnot false or there is index value
                                     echo "<td>";
                                         // echo all words before the searched key word
@@ -183,7 +189,7 @@
 
                                 // the 4th column --------
                                 $rowWord4 = $row['job_type']; 
-                                $rowWord4I = strpos($rowWord4, $_POST["search"]); // index of searched key in pos
+                                $rowWord4I = stripos($rowWord4, $_POST["search"]); // index of searched key in pos
                                 if($rowWord4I !== false){ // check if index isnot false or there is index value
                                     echo "<td>";
                                         // echo all words before the searched key word
@@ -210,7 +216,7 @@
                                 
                                 // the 5th column --------
                                 $rowWord5 = $row['place']; 
-                                $rowWord5I = strpos($rowWord5, $_POST["search"]); // index of searched key in collumn
+                                $rowWord5I = stripos($rowWord5, $_POST["search"]); // index of searched key in collumn
                                 if($rowWord5I !== false){ // check if index isnot false or there is index value
                                     echo "<td>";
                                         // echo all words before the searched key word if exist
@@ -241,7 +247,7 @@
                                 
                                 // the 6th column --------
                                 $rowWord6 = $row['deadline']; 
-                                $rowWord6I = strpos($rowWord6, $_POST["search"]); // index of searched key in collumn
+                                $rowWord6I = stripos($rowWord6, $_POST["search"]); // index of searched key in collumn
                                 if($rowWord6I !== false){ // check if index isnot false or there is index value
                                     echo "<td>";
                                         // echo all words before the searched key word if exist
@@ -281,7 +287,7 @@
                         while($row = mysqli_fetch_array($result)){
                             $formattedDate = date("d-M-Y", strtotime($row["date"]));
                             echo "<tr>";
-                            echo "<td>" . $number . "</td>";
+                            echo "<td>" . $number . "-". $row['id'] . "</td>";
                             echo "<td>" . $row['posted_in'] . "</td>";
                             echo "<td>" . $row['company'] . "</td>";
                             echo "<td class='c-green'>" . $row['position'] . "</td>";
