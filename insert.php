@@ -7,38 +7,49 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Job Vacancy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <link rel="stylesheet" href="/job vacancy/css/font.css">
-    <link rel="stylesheet" href="/job vacancy/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/job vacancy/css/app.css">
-    <link rel="stylesheet" href="/job vacancy/css/my_style.css">
+    <link rel="stylesheet" href="/job.vacancy/css/font.css">
+    <link rel="stylesheet" href="/job.vacancy/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/job.vacancy/css/app.css">
+    <link rel="stylesheet" href="/job.vacancy/css/my_style.css">
     
-    <style>
-        .clr-red{
-            color: red;
-        }
-    </style>
-
+	<style> 
+		.profile-img-css{
+			width: 40px;
+			height: 40px;
+			object-fit: cover;
+			border-radius: 50%;
+		}
+	</style>
 </head>
 
 <body class="flex flex-wrap justify-center bg-blue-100">
 
     <div class="flex w-full justify-between px-4 bg-purple-900 text-white">
         <div class="my-4">
-            <a class="mx-3" href="/job vacancy/home.php">Home</a>
-            <a class="mx-3 active" href="/job vacancy/insert.php">New</a>
+            <a class="mx-3" href="/job.vacancy/home.php">Home</a>
+            <a class="mx-3 px-2 active" href="/job.vacancy/insert.php">New</a>
         </div>
-        <div >
-            <img src="/job vacancy/img/profile-pic.png" alt="profile img" width="40px" class="mx-3" >
-            <h2 class="mx-2" > <?php session_start(); echo 'Ahmed'; session_destroy() ?> </h2>
-            <a class="mx-2 clr-red" href="/job vacancy/login.php"> Logout </a>
+		<div>
+			<?php 
+				session_start(); 
+				if(isset($_SESSION['login_user'])){
+					$user = $_SESSION['login_user']; 
+				}else $user = 'Guest';
+				
+				echo '<img src="/job.vacancy/img/'.$_SESSION['profile'].'" title="'.$user.'" alt="profile img" class="mx-3 profile-img-css" >';
+				echo '<h2 class="mx-3" title="'.$user.'">';
+				echo $user; 
+				echo '</h2>';
+			?>
+			<a href="/job.vacancy/login.php" class="mx-3 text-red-500" title="logout"> Logout </a>
         </div>
     </div>
+	
     <div class="my-1 w-full flex justify-center">
         <div class="my-10 flex justify-center w-full">
             <section class="border rounded shadow-lg p-4 w-6/12 bg-gray-200">
                 <h1 class="text-center text-3xl my-2">Enter the info</h1>
-                <?php
-            		session_start();
+                <?php 
                     if(isset($_SESSION['position'])){
                         echo '<div class="flex justify-around my-8">';
                         echo '<div class="p-3 bg-green-300 w-10/12 text-green-800 rounded shadow-sm text-center">';
@@ -46,7 +57,8 @@
                         echo '</div>';
                         echo '</div>';
                     }
-                    session_destroy() 
+					unset($_SESSION['position']);
+                    //session_destroy() 
                 ?>
                 <hr>
                 <form class="my-4" action="action.php"  method="post">

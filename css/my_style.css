@@ -15,11 +15,13 @@
 .btn-del:active{
 	background-color: red;
 }
+
 .active{
-	border: 1px solid lightblue;
-	background-color: grey;
+	/* border: 1px solid gray;  */
+	background-color: #6c42f5;
 	border-radius: 3px;
 }
+
 table{
 	border-color: #3bbfeb;
 }

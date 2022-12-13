@@ -14,14 +14,20 @@
     
 	$conn = mysqli_connect("localhost", "root", "", "jobs_vacancy");
     
-    $user = mysqli_real_escape_string($conn,$_REQUEST['username']);
-    $pass = mysqli_real_escape_string($conn,$_REQUEST['password']);
+    session_start();
+	$username = $_POST['username'];  
+    $password = $_POST['password'];
 	
-    $sql = "SELECT id FROM users WHERE username = '$user'";
+	// To prevent from mysqli injection
+	$username = stripcslashes($username);  
+    $password = stripcslashes($password);
+    $username = mysqli_real_escape_string($conn,$username);
+    $password = mysqli_real_escape_string($conn,$password);
+	
+    $sql = "SELECT id FROM users WHERE username = '$username'";
     $check = mysqli_query($conn, $sql);
     $row1 = mysqli_fetch_array($check,MYSQLI_ASSOC);
     
-    session_start();
     $count = mysqli_num_rows($check);
     if ($count != 1){
         $_SESSION['user'] = 'false';
@@ -30,14 +36,20 @@
         header('Location: login.php');
         exit;
     }else{
-        $sql = "SELECT id FROM users WHERE username = '$user'  AND passcode = '$password'";
-        $result = mysqli_query($conn, $sql);
+        $sql = "SELECT id FROM users WHERE username = '$username' and passcode = '$password'";
+        $result = mysqli_query($conn, $sql); 
         $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
         
         $count = mysqli_num_rows($result);
         if ($count == 1){
-            $userName = $_REQUEST['username'];
-            $_SESSION['login_user'] = $userName;
+			$sql2 = "SELECT username, profile FROM users WHERE username = '$username' and passcode = '$password'";
+			$res = mysqli_query($conn, $sql2);
+			$row2 = mysqli_fetch_array($res,MYSQLI_ASSOC);
+			
+			$_SESSION['user_id'] = $row['id'];
+			$_SESSION['login_user'] = $row2['username'];
+			$_SESSION['profile'] = $row2['profile'];
+
             mysqli_close($conn);
             header('Location: home.php');
             exit;
@@ -48,8 +60,6 @@
             header('Location: login.php');
             exit;
         }
-
-
     }
 
 

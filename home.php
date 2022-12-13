@@ -7,33 +7,40 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Job Vacancy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <link rel="stylesheet" href="/job vacancy/css/font.css">
-    <link rel="stylesheet" href="/job vacancy/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/job vacancy/css/app.css">
-    <link rel="stylesheet" href="/job vacancy/css/my_style.css">
-
-    <style>
-        .highlight{ /* highlight searched word key */
-            color: blue;
-        }
-        .clr-red{
-            color: red;
-        }
-    </style>
-   
+    <link rel="stylesheet" href="/job.vacancy/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/job.vacancy/css/app.css">
+    <link rel="stylesheet" href="/job.vacancy/css/my_style.css">
+	<style> 
+		.profile-img-css{
+			width: 40px;
+			height: 40px;
+			object-fit: cover;
+			border-radius: 50%;
+		}
+	</style>
 </head>
 
 <body class="flex flex-wrap justify-center bg-blue-100">
 
     <div class="flex w-full justify-between px-4 bg-purple-900 text-white">
         <div class="my-4">
-            <a class="mx-3 active" href="/job vacancy/home.php">Home</a>
-            <a class="mx-3 " href="/job vacancy/insert.php">New</a>
+            <a class="mx-3 px-2 active" href="/job.vacancy/home.php">Home</a>
+            <a class="mx-3" href="/job.vacancy/insert.php">New</a>
         </div>
-        <div >
-            <img src="/job vacancy/img/profile-pic.png" alt="profile img" width="40px" class="mx-3" >
-            <h2 class="mx-2" > <?php session_start(); echo 'Ahmed'; ?> </h2>
-            <a class="mx-2 clr-red" href="/job vacancy/login.php"> Logout </a>
+        <div>
+			<?php 
+				session_start(); 
+				if(isset($_SESSION['login_user'])){
+					$user = $_SESSION['login_user']; 
+				}else $user = 'Guest';
+				
+				echo '<img src="/job.vacancy/img/'.$_SESSION['profile'].'" title="'.$user.'" alt="profile img" class="mx-3 profile-img-css" >';
+				echo '<h2 class="mx-3" title="'.$user.'">';
+				echo $user; 
+				echo '</h2>';
+			?>
+			<a href="/job.vacancy/login.php" class="mx-3 text-red-500" title="logout"> Logout </a>
+
         </div>
     </div>
     <div class="my-10 w-full flex justify-center">
@@ -44,31 +51,32 @@
                 <?php
                     // deleted successfully message
             		
-                    if(isset($_SESSION['id'])){
+                    if(isset($_SESSION['delete'])){
                         echo '<div class="flex justify-around my-8">';
                         echo '<div class="p-3 bg-red-300 w-10/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> Data deleted successfuly 🙂 </span>';
                         echo '</div>';
                         echo '</div>';
                     }
-                    session_destroy() 
+					unset($_SESSION['id']); 
                 ?>
                 <hr>
                 
                 <form action="home.php" method="post" class="flex justify-center my-3">
-                    <a href="/job vacancy/home.php" class="btn-del">clear</a>
+                    <a href="/job.vacancy/home.php" class="btn-del">clear</a>
                     <input type="text" name="search" class="search" 
                         <?php 
                             // set the input value to searched key word
                             // if it searched
-                            if(isset($_POST["search"])) 
-                            echo 'value="'.$_POST["search"].'"'
+                            if(isset($_POST["search"])){
+								echo 'value="'.$_POST["search"].'"';}
                         ?> 
                         placeholder="search...">
                     <input type="submit" value="Search" class="btn">
                 </form>
-
+                
                 <?php
+                if($user != 'Guest'){
                     $conn = mysqli_connect("localhost", "root", "", "jobs_vacancy");
                         
                     // Check connection
@@ -76,8 +84,8 @@
                         die("ERROR: Could not connect. "
                             . mysqli_connect_error());
                     }
-
-                    $result =  mysqli_query($conn, "SELECT * FROM jobs");
+                    $user_id = $_SESSION['user_id'];
+                    $result =  mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id'");
 
                     echo "<table border='1'>
                             <tr>    
@@ -118,7 +126,7 @@
                                             }
                                         }
                                         // echo the searched key word highligheted 
-                                        echo '<span class="highlight">';
+                                        echo '<span class="bg-yellow-400">';
                                         for ($i = $rowWord1I; $i < ($rowWord1I + $sL); $i++) {
                                             echo $rowWord1[$i];
                                         }
@@ -145,7 +153,7 @@
                                             }
                                         }
                                         // echo the searched key word highligheted 
-                                        echo '<span class="highlight">';
+                                        echo '<span class="bg-yellow-400">';
                                         for ($i = $rowWord2I; $i < ($rowWord2I + $sL); $i++) {
                                             echo $rowWord2[$i];
                                         }
@@ -174,7 +182,7 @@
                                             echo '</span>';
                                         }
                                         // echo the searched key word highligheted 
-                                        echo '<span class="highlight">';
+                                        echo '<span class="bg-yellow-400">';
                                         for ($i = $rowWord3I; $i < ($rowWord3I + $sL); $i++) {
                                             echo $rowWord3[$i];
                                         }
@@ -203,8 +211,8 @@
                                             }
                                         }
                                         // echo the searched key word highligheted 
-                                        echo '<span class="highlight">';
-                                        for ($i = $rowWord4; $i < ($rowWord4I + $sL); $i++) {
+                                        echo '<span class="bg-yellow-400">';
+                                        for ($i = $rowWord4I; $i < ($rowWord4I + $sL); $i++) {
                                             echo $rowWord4[$i];
                                         }
                                         echo '</span>';
@@ -232,7 +240,7 @@
                                             echo '</span>';
                                         }
                                         // echo the searched key word highligheted 
-                                        echo '<span class="highlight">';
+                                        echo '<span class="bg-yellow-400">';
                                         for ($i = $rowWord5I; $i < ($rowWord5I + $sL); $i++) {
                                             echo $rowWord5[$i];
                                         }
@@ -261,7 +269,7 @@
                                             }
                                         }
                                         // echo the searched key word highligheted 
-                                        echo '<span class="highlight">';
+                                        echo '<span class="bg-yellow-400">';
                                         for ($i = $rowWord6I; $i < ($rowWord6I + $sL); $i++) {
                                             echo $rowWord6[$i];
                                         }
@@ -277,7 +285,7 @@
                                 } else echo "<td>" . $row['deadline'] . "</td>";
                                 
                                 echo "<td>" . $formattedDate . "</td>";
-                                echo "<td><a href='/job vacancy/delete.php?id=".$row['id']."' class='btn-del'>Delete </a> </td>";
+                                echo "<td><a href='/job.vacancy/delete.php?id=".$row['id']."' class='btn-del'>Delete </a> </td>";
                                 echo "</tr>";
                                 $number++;
                             }
@@ -285,7 +293,7 @@
                         }else { 
                             echo "</table>";
     
-                            echo "<h2 style='text-align:center; color: red'>--- No result found ---</h2>"; 
+                            echo "<h2 class='text-center text-red-500 border border-blue-500'> No result found... </h2>"; 
                         }
                     } else {
                         while($row = mysqli_fetch_array($result)){
@@ -299,7 +307,7 @@
                             echo "<td class='c-green'>" . $row['place'] . "</td>";
                             echo "<td>" . $row['deadline'] . "</td>";
                             echo "<td>" . $formattedDate . "</td>";
-                            echo "<td><a href='/job vacancy/delete.php?id=".$row['id']."' class='btn-del'>Delete </a> </td>";
+                            echo "<td><a href='/job.vacancy/delete.php?id=".$row['id']."' class='btn-del'>Delete </a> </td>";
                             echo "</tr>";
                             $number++;
                         }
@@ -307,7 +315,9 @@
                     }
                     
                     mysqli_close($conn);
-
+                }else{
+                    echo "Sorry! no content, you are guest";
+                }
                 ?>
             
             </section>

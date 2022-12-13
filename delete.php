@@ -22,7 +22,7 @@
 			// Initialize the session
 			session_start();
 			// Temporarily in $_POST structure.
-			$_SESSION['id'] = $id;
+			$_SESSION['delete'] = $id;
 			
 			mysqli_close($conn);
 			header('Location: home.php');
