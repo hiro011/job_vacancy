@@ -37,6 +37,15 @@
                         echo '</div>';
                     } 
 					
+					// you need login message
+                    if(isset($_SESSION['login'])){
+                        echo '<div class="flex justify-around my-8">';
+                        echo '<div class="p-3 bg-red-300 text-orange-800 rounded shadow-sm text-center">';
+                        echo '<span> you have to login to access this page! </span>';
+                        echo '</div>';
+                        echo '</div>';
+                    } 
+					
                     // wrong password message
                     if(isset($_SESSION['password'])){
                         echo '<div class="flex justify-around my-8">';

@@ -21,20 +21,34 @@
 </head>
 
 <body class="flex flex-wrap justify-center bg-blue-100">
-
+	<?php 
+		session_start(); 
+		if(isset($_SESSION['login_user'])){
+			$user = $_SESSION['login_user']; 
+		}else $user = 'Guest';
+		
+		if($user == 'Guest'){
+			$_SESSION['login'] = 'false';
+			header('Location: login.php');
+			exit;
+		}
+	?>
     <div class="flex w-full justify-between px-4 bg-purple-900 text-white">
         <div class="my-4">
-            <a class="mx-3 px-2 active" href="/job.vacancy/home.php">Home</a>
-            <a class="mx-3" href="/job.vacancy/insert.php">New</a>
+			<?php 
+				if($user != 'Guest'){
+					echo '<a class="mx-3 px-2 active" href="/job.vacancy/home.php">Home</a>';
+					echo '<a class="mx-3" href="/job.vacancy/insert.php">New</a>';
+				}
+			?>
         </div>
+		
         <div>
 			<?php 
-				session_start(); 
-				if(isset($_SESSION['login_user'])){
-					$user = $_SESSION['login_user']; 
-				}else $user = 'Guest';
-				
-				echo '<img src="/job.vacancy/img/'.$_SESSION['profile'].'" title="'.$user.'" alt="profile img" class="mx-3 profile-img-css" >';
+				if(isset($_SESSION['profile'])){
+					echo '<img src="/job.vacancy/img/'.$_SESSION['profile'].'" title="'.$user.'" alt="profile img" class="mx-3 profile-img-css" >';
+				}else echo '<img src="/job.vacancy/img/defualt/defualt_profile.png" title="'.$user.'" alt="profile img" class="mx-3 profile-img-css" >';
+
 				echo '<h2 class="mx-3" title="'.$user.'">';
 				echo $user; 
 				echo '</h2>';
@@ -53,12 +67,12 @@
             		
                     if(isset($_SESSION['delete'])){
                         echo '<div class="flex justify-around my-8">';
-                        echo '<div class="p-3 bg-red-300 w-10/12 text-orange-800 rounded shadow-sm text-center">';
+                        echo '<div class="p-3 bg-red-300 w-4/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> Data deleted successfuly 🙂 </span>';
                         echo '</div>';
                         echo '</div>';
                     }
-					unset($_SESSION['id']); 
+					unset($_SESSION['delete']); 
                 ?>
                 <hr>
                 
@@ -89,7 +103,8 @@
 
                     echo "<table border='1'>
                             <tr>    
-                                <th>No-id</th>
+                                <th>No</th>
+                                <th>ID</th>
                                 <th>Posted In</th>
                                 <th>Company</th>
                                 <th>Position</th>
@@ -101,7 +116,7 @@
                             </tr> "; 
                     $number = 1;
 
-                    if (isset($_POST["search"])) { /* check if search button/input is clicke */
+                    if (isset($_POST["search"])) { /* check if search button/input is clicked */
                         // (B1) SEARCH FOR USERS
                         require "search.php";
                         if (count($result) > 0) { 
@@ -112,7 +127,8 @@
                                 echo "<tr>";
 
                                 // the numbering column --------
-                                echo "<td>" . $number . "-". $row['id'] ."</td>"; // incrimented number
+                                echo "<td>" . $number ."</td>"; // incrimented number
+                                echo "<td>" . $row['id'] ."</td>"; // id
 
                                 // the 1st column --------
                                 $rowWord1 = $row['posted_in']; 
@@ -295,11 +311,13 @@
     
                             echo "<h2 class='text-center text-red-500 border border-blue-500'> No result found... </h2>"; 
                         }
-                    } else {
+                    } 
+					else {
                         while($row = mysqli_fetch_array($result)){
                             $formattedDate = date("d-M-Y", strtotime($row["date"]));
                             echo "<tr>";
-                            echo "<td>" . $number . "-". $row['id'] . "</td>";
+							echo "<td>" . $number ."</td>"; // incrimented number
+							echo "<td>" . $row['id'] ."</td>"; // id
                             echo "<td>" . $row['posted_in'] . "</td>";
                             echo "<td>" . $row['company'] . "</td>";
                             echo "<td class='c-green'>" . $row['position'] . "</td>";

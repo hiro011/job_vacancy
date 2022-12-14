@@ -23,7 +23,18 @@
 </head>
 
 <body class="flex flex-wrap justify-center bg-blue-100">
-
+	<?php 	
+		session_start(); 
+		if(isset($_SESSION['login_user'])){
+			$user = $_SESSION['login_user']; 
+		}else $user = 'Guest';
+		
+		if($user == 'Guest'){
+			$_SESSION['login'] = 'false';
+			header('Location: login.php');
+			exit;
+		}
+	?>
     <div class="flex w-full justify-between px-4 bg-purple-900 text-white">
         <div class="my-4">
             <a class="mx-3" href="/job.vacancy/home.php">Home</a>
@@ -31,12 +42,10 @@
         </div>
 		<div>
 			<?php 
-				session_start(); 
-				if(isset($_SESSION['login_user'])){
-					$user = $_SESSION['login_user']; 
-				}else $user = 'Guest';
-				
-				echo '<img src="/job.vacancy/img/'.$_SESSION['profile'].'" title="'.$user.'" alt="profile img" class="mx-3 profile-img-css" >';
+				if(isset($_SESSION['profile'])){
+					echo '<img src="/job.vacancy/img/'.$_SESSION['profile'].'" title="'.$user.'" alt="profile img" class="mx-3 profile-img-css" >';
+				}else echo '<img src="/job.vacancy/img/defualt/defualt_profile.png" title="'.$user.'" alt="profile img" class="mx-3 profile-img-css" >';
+
 				echo '<h2 class="mx-3" title="'.$user.'">';
 				echo $user; 
 				echo '</h2>';
@@ -58,10 +67,9 @@
                         echo '</div>';
                     }
 					unset($_SESSION['position']);
-                    //session_destroy() 
                 ?>
                 <hr>
-                <form class="my-4" action="action.php"  method="post">
+                <form class="my-4" action="insert_action.php"  method="post">
                     <div class="flex justify-around my-4">
                         <div class="flex flex-wrap w-10/12">
                             <input type="text" name="posted_in" title="Posted in" class="p-2 rounded border shadow-sm w-full" placeholder="Posted in" />

@@ -12,7 +12,9 @@
 			. mysqli_connect_error());
 	}
 	
+	session_start(); 
 	// Taking all 7 values from the form data(input)
+	$user_id = $_SESSION['user_id'];
 	$posted_in = $_REQUEST['posted_in'];
 	$company = $_REQUEST['company'];
 	$position = $_REQUEST['position'];
@@ -23,7 +25,7 @@
 	
 	// Performing insert query execution
 	// here our table name is jobs
-	$sql = "INSERT INTO jobs VALUES ('$id', '$posted_in',
+	$sql = "INSERT INTO jobs VALUES ('$id', '$user_id', '$posted_in',
 	'$company', '$position', '$job_type', 
 	'$place', '$deadline', '$date')" ;
 	 

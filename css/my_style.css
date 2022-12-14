@@ -24,7 +24,14 @@
 
 table{
 	border-color: #3bbfeb;
+	display: block;
+    overflow-x: auto;
+    white-space: nowrap;
 }
+/* table tbody { */
+    /* display: table; */
+    /* width: 100%; */
+/* } */
  
 .h-op-75:hover{
 	opacity: 0.75;

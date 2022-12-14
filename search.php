@@ -20,20 +20,27 @@
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
     ]);
     
+	// session_start();
+	$user_id = $_SESSION['user_id'];
     // (C) SEARCH
     if($_POST["search"] == ''){
         header('Location: home.php');
 		exit;
     } else {
         $stmt = $pdo->prepare("SELECT * FROM `jobs` WHERE 
-                                `posted_in` LIKE ? OR 
-                                `company` LIKE ? OR 
-                                `position` LIKE ? OR 
-                                `job_type` LIKE ? OR 
-                                `place` LIKE ? OR 
-                                `deadline` LIKE ?"
+                                `user_id` = ? AND `posted_in` LIKE ? OR 
+								`user_id` = ? AND `company` LIKE ? OR 
+								`user_id` = ? AND `position` LIKE ? OR 
+								`user_id` = ? AND `job_type` LIKE ? OR 
+								`user_id` = ? AND `place` LIKE ? OR 
+								`user_id` = ? AND `deadline` LIKE ?"
                                 );
-        $stmt->execute(["%".$_POST["search"]."%", "%".$_POST["search"]."%", "%".$_POST["search"]."%", "%".$_POST["search"]."%", "%".$_POST["search"]."%", "%".$_POST["search"]."%"]);
+        $stmt->execute([$user_id, "%".$_POST["search"]."%", 
+						$user_id, "%".$_POST["search"]."%",
+						$user_id, "%".$_POST["search"]."%",
+						$user_id, "%".$_POST["search"]."%",
+						$user_id, "%".$_POST["search"]."%",
+						$user_id, "%".$_POST["search"]."%"]);
         $result = $stmt->fetchAll();
         if (isset($_POST["ajax"])) { 
             echo json_encode($result); 

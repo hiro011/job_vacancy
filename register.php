@@ -60,7 +60,7 @@
                     <div class="flex justify-center mx-3 w-10/12 my-4">
 						<div>
 							<label for="image" class="flex flex-col justify-center cursor-pointer profile-img-label mx-5">
-								<img src="/job.vacancy/img/defualt_profile.png" alt="defualt profile pic" id="profile_pic" class="profile-img-css"></br>
+								<img src="/job.vacancy/img/defualt/defualt_profile.png" alt="defualt profile pic" id="profile_pic" class="profile-img-css"></br>
 								<span class="mx-2 strong underline">Choose profile</span>
 							</label>
 
