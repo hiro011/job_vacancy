@@ -70,8 +70,8 @@
                     // deleted successfully message
             		
                     if(isset($_SESSION['delete'])){
-                        echo '<div class="flex justify-around my-8">';
-                        echo '<div class="p-3 bg-red-300 w-4/12 text-orange-800 rounded shadow-sm text-center">';
+                        echo '<div class="flex  justify-around my-8">';
+                        echo '<div class="p-3 message_alert bg-red-300 w-4/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> Data deleted successfuly 🙂 </span>';
                         echo '</div>';
                         echo '</div>';

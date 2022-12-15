@@ -55,7 +55,7 @@
 	
     <div class="my-1 w-full flex justify-center">
         <div class="my-10 flex justify-center w-full">
-            <section class="border rounded shadow-lg p-4 w-6/12 bg-gray-200">
+            <section class="view_sec view_sec2 border rounded shadow-lg p-4 w-6/12 bg-gray-200">
                 <h1 class="text-center text-3xl my-2">Enter the info</h1>
                 <?php 
                     if(isset($_SESSION['position'])){

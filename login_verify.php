@@ -35,7 +35,8 @@
         mysqli_close($conn);
         header('Location: login.php');
         exit;
-    }else{
+    }
+	else{
         $sql = "SELECT id FROM users WHERE username = '$username' and passcode = '$password'";
         $result = mysqli_query($conn, $sql); 
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);

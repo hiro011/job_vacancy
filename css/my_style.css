@@ -88,6 +88,14 @@ table{
 		margin-right: 0;
 		padding: 1rem;
 	}
+	.view_sec2{
+		width: 100%;
+		margin-left: 1.25rem;
+		margin-right: 1.25rem;
+	}
+	.message_alert{
+		width: 80%;
+	}
 }
 
     
