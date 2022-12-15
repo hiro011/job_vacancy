@@ -31,7 +31,7 @@
                     // no user account message
                     if(isset($_SESSION['user'])){
                         echo '<div class="flex justify-around my-8">';
-                        echo '<div class="p-3 bg-red-300 text-orange-800 rounded shadow-sm text-center">';
+                        echo '<div class="p-3 bg-red-300 w-10/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> Username does not exist! </span>';
                         echo '</div>';
                         echo '</div>';
