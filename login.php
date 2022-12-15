@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Job Vacancy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <link rel="stylesheet" href="/job.vacancy/css/font.css">
+    
     <link rel="stylesheet" href="/job.vacancy/css/bootstrap.min.css">
     <link rel="stylesheet" href="/job.vacancy/css/app.css">
     <link rel="stylesheet" href="/job.vacancy/css/my_style.css">
