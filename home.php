@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="/job.vacancy/css/bootstrap.min.css">
     <link rel="stylesheet" href="/job.vacancy/css/app.css">
-    <link rel="stylesheet" href="/job.vacancy/css/my_style.css">
+    <link rel="stylesheet" href="/job.vacancy/css/my_style.css"> 
 	
 	<style>
 		.profile-img-css{
@@ -45,17 +45,17 @@
 			?>
         </div>
 		
-        <div>
+        <div class="flex flex-col justify-center">
 			<?php 
 				if(isset($_SESSION['profile'])){
-					echo '<img src="/job.vacancy/img/'.$_SESSION['profile'].'" title="'.$user.'" alt="profile img" class="mx-4 profile-img-css" >';
-				}else echo '<img src="/job.vacancy/img/defualt/defualt_profile.png" title="'.$user.'" alt="profile img" class="mx-4 profile-img-css" >';
+					echo '<img src="/job.vacancy/img/'.$_SESSION['profile'].'" title="'.$user.'" alt="profile img" class="profile-img-css" >';
+				}else echo '<img src="/job.vacancy/img/defualt/defualt_profile.png" title="'.$user.'" alt="profile img" class="profile-img-css" >';
 
-				echo '<h2 class="mx-3" title="'.$user.'">';
+				echo '<h2 title="'.$user.'">';
 				echo $user; 
 				echo '</h2>';
 			?>
-			<a href="/job.vacancy/login.php" class="mx-3 text-red-500" title="logout"> Logout </a>
+			<a href="/job.vacancy/login.php" class="text-red-500" title="logout"> Logout </a>
 
         </div>
     </div>
@@ -68,15 +68,51 @@
                 
 				<?php
                     // deleted successfully message
-            		
                     if(isset($_SESSION['delete'])){
                         echo '<div class="flex  justify-around my-8">';
-                        echo '<div class="p-3 message_alert bg-red-300 w-4/12 text-orange-800 rounded shadow-sm text-center">';
+                        echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> Data deleted successfuly 🙂 </span>';
                         echo '</div>';
                         echo '</div>';
-                    }
+                    } 
 					unset($_SESSION['delete']); 
+					
+					if(isset($_SESSION['delete2'])){
+                        echo '<div class="flex  justify-around my-8">';
+                        echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
+                        echo '<span> Data undo successful 🙂 </span>';
+                        echo '</div>';
+                        echo '</div>';
+                    } 
+					unset($_SESSION['delete2']); 
+					
+                    if(isset($_SESSION['history'])){
+                        echo '<div class="flex  justify-around my-8">';
+                        echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
+                        echo '<span> Unable to save data history! </span>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+					unset($_SESSION['history']); 
+
+                    if(isset($_SESSION['history_deleted'])){
+                        echo '<div class="flex  justify-around my-8">';
+                        echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
+                        echo '<span> History data deleted successfuly 🙂 </span>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+					unset($_SESSION['history_deleted']); 
+					
+					
+                    if(isset($_SESSION['undo'])){
+                        echo '<div class="flex  justify-around my-8">';
+                        echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
+                        echo '<span> Error! failed to undo. </span>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+					unset($_SESSION['undo']); 
                 ?>
 				
                 <hr>
@@ -328,7 +364,7 @@
 							} 
 							else {
 								while($row = mysqli_fetch_array($result)){
-									$formattedDate = date("d-M-Y", strtotime($row["date"]));
+									$formattedDate = date("d-M", strtotime($row["date"]));
 									echo "<tr>";
 									echo "<td>" . $number ."</td>"; // incrimented number
 									echo "<td>" . $row['id'] ."</td>"; // id
@@ -346,10 +382,63 @@
 								echo "</tbody>";
 								echo "</table>";
 							}
-
-							mysqli_close($conn);
 						?>
 					
+					<h1 class="text-center text-3xl my-2">Deleted History</h1>
+					<hr>
+					<?php 
+						$result2 =  mysqli_query($conn, "SELECT * FROM deleted_data WHERE user_id = '$user_id'");
+						$check = mysqli_fetch_array($result2,MYSQLI_ASSOC);
+						
+						$count = mysqli_num_rows($result2);
+						if($count > 0){
+							echo '<table border="1" >';
+							echo '<thead>
+									<tr>    
+										<th>No</th>
+										<th>ID</th>
+										<th>Posted In</th>
+										<th>Company</th>
+										<th>Position</th>
+										<th>Job Type</th>
+										<th>Place</th>
+										<th>Deadline</th>
+										<th>Inserted Date</th>
+										<th>Deleted Date</th>
+										<th>Option</th>
+										<th>Undo</th>
+									</tr>  
+								</thead>';
+							echo '<tbody>';
+							
+							$result2 =  mysqli_query($conn, "SELECT * FROM deleted_data WHERE user_id = '$user_id'");
+							$number1 = 1;
+							while($row = mysqli_fetch_array($result2)){
+								$formattedDate = date("d-M", strtotime($row["date"]));
+								$formattedDate2 = date("d-M", strtotime($row["save_date"]));
+								echo "<tr>";
+								echo "<td>" . $number1 ."</td>"; // incrimented number
+								echo "<td>" . $row['id'] ."</td>"; // id
+								echo "<td>" . $row['posted_in'] . "</td>";
+								echo "<td>" . $row['company'] . "</td>";
+								echo "<td class='c-green'>" . $row['position'] . "</td>";
+								echo "<td>" . $row['job_type'] . "</td>";
+								echo "<td class='c-green'>" . $row['place'] . "</td>";
+								echo "<td>" . $row['deadline'] . "</td>";
+								echo "<td>" . $formattedDate2 . "</td>";
+								echo "<td>" . $formattedDate . "</td>";
+								echo "<td><a href='/job.vacancy/delete_history.php?id=".$row['id']."' class='btn-del'>Delete </a> </td>";
+								echo "<td><a href='/job.vacancy/save_history.php?id=".$row['id']."' class='border bg-green-300 text-green-600 border-green-600'>Undo </a> </td>";
+								echo "</tr>";
+								$number1++;
+							}
+						}
+						else {
+							echo '<h2 class="text-center"> No delete history </h2>';
+						}
+					?>
+						</tbody>
+					</table>
 				</div>
             </section>
         </div>

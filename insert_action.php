@@ -24,7 +24,6 @@
 	$date = date("y/m/d");
 	
 	// Performing insert query execution
-	// here our table name is jobs
 	$sql = "INSERT INTO jobs VALUES ('$id', '$user_id', '$posted_in',
 	'$company', '$position', '$job_type', 
 	'$place', '$deadline', '$date')" ;
@@ -32,10 +31,7 @@
 	
 	 
 	if(mysqli_query($conn, $sql)){
-		
-		// Initialize the session
-		session_start();
-		// Temporarily in $_POST structure.
+
 		$_SESSION['position'] = $_POST['position'];
 		 
 		mysqli_close($conn);

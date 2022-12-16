@@ -16,9 +16,9 @@
 	session_start(); 
 	$id = $_REQUEST['id'];
 	
-	// Saving history
+	// undo history
 	$user_id = $_SESSION['user_id'];
-	$result =  mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id' and id = '$id'");
+	$result =  mysqli_query($conn, "SELECT * FROM deleted_data WHERE user_id = '$user_id' and id = '$id'");
 	$row2 = mysqli_fetch_array($result,MYSQLI_ASSOC);		
  
 	$user_id = $row2['user_id'];
@@ -28,20 +28,18 @@
 	$job_type = $row2['job_type'];
 	$place = $row2['place'];
 	$deadline = $row2['deadline'];
-	$save_date = $row2['date'];
-	$date = date("y/m/d");
+	$date = $row2['save_date'];
 
 	// Performing insert query execution
-	$sql1 = "INSERT INTO deleted_data VALUES ('$id', '$user_id', '$posted_in',
-		'$company', '$position', '$job_type', '$place', '$deadline', 
-		'$save_date', '$date')" ;
+	$sql1 = "INSERT INTO jobs VALUES ('$id', '$user_id', '$posted_in',
+		'$company', '$position', '$job_type', '$place', '$deadline', '$date')" ;
 		
 	if(mysqli_query($conn, $sql1)){
 		// Performing delete query execution 
-		$sql = "DELETE FROM jobs WHERE id = '$id'";
+		$sql = "DELETE FROM deleted_data WHERE id = '$id'";
 		if(mysqli_query($conn, $sql)){
 			 
-			$_SESSION['delete'] = $id;
+			$_SESSION['delete2'] = $id;
 			
 			mysqli_close($conn);
 			header('Location: home.php');
@@ -53,7 +51,7 @@
 		}
 	}
 	else{
-		$_SESSION['history'] = $id;
+		$_SESSION['undo'] = $id;
 		 
 		mysqli_close($conn);
 		header('Location: home.php');

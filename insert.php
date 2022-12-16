@@ -39,17 +39,19 @@
             <a class="mx-3" href="/job.vacancy/home.php">Home</a>
             <a class="mx-3 px-2 active" href="/job.vacancy/insert.php">New</a>
         </div>
-		<div>
+		
+		<div class="flex flex-col justify-center">
 			<?php 
 				if(isset($_SESSION['profile'])){
-					echo '<img src="/job.vacancy/img/'.$_SESSION['profile'].'" title="'.$user.'" alt="profile img" class="mx-3 profile-img-css" >';
-				}else echo '<img src="/job.vacancy/img/defualt/defualt_profile.png" title="'.$user.'" alt="profile img" class="mx-3 profile-img-css" >';
+					echo '<img src="/job.vacancy/img/'.$_SESSION['profile'].'" title="'.$user.'" alt="profile img" class="profile-img-css" >';
+				}else echo '<img src="/job.vacancy/img/defualt/defualt_profile.png" title="'.$user.'" alt="profile img" class="profile-img-css" >';
 
-				echo '<h2 class="mx-3" title="'.$user.'">';
+				echo '<h2 title="'.$user.'">';
 				echo $user; 
 				echo '</h2>';
 			?>
-			<a href="/job.vacancy/login.php" class="mx-3 text-red-500" title="logout"> Logout </a>
+			<a href="/job.vacancy/login.php" class="text-red-500" title="logout"> Logout </a>
+
         </div>
     </div>
 	

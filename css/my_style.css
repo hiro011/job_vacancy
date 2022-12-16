@@ -1,12 +1,12 @@
 
 .btn-del{
-	cursor: pointer;
-	border: 1px solid red;
+	cursor: pointer; 
 	background-color: orange;
 	border-radius: 10%;
 	color: red;
 	text-align: center;
 }
+ 
 .btn-del:hover{
 	transition: 0.3;
 	outline-color: transparent;
@@ -68,19 +68,12 @@ table{
 	width: 100%;
 }
 @media (max-width: 600px) {
-	/*table{
-		display: block;
-		max-width: -moz-fit-content;
-		max-width: fit-content;
-		margin: 0 auto;
-		overflow-x: auto;
-	}*/
+	 
 	.view_sec h1{
 		font-size: 1.25rem
 	}
 	.table_wrapper{
-		border: 1px solid red;
-		width: 100%;
+		border: 1px solid red; 
 	}
 	.view_sec{
 		font-size: .75rem;
