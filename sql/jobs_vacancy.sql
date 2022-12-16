@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2022 at 01:54 PM
+-- Generation Time: Dec 16, 2022 at 03:04 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -20,6 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `jobs_vacancy`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `deleted_data`
+--
+
+CREATE TABLE `deleted_data` (
+  `id` bigint(20) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `posted_in` varchar(100) DEFAULT NULL,
+  `company` varchar(200) DEFAULT NULL,
+  `position` varchar(200) DEFAULT NULL,
+  `job_type` varchar(100) DEFAULT NULL,
+  `place` varchar(100) DEFAULT NULL,
+  `deadline` varchar(100) DEFAULT NULL,
+  `save_date` date DEFAULT NULL,
+  `date` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `deleted_data`
+--
+
+INSERT INTO `deleted_data` (`id`, `user_id`, `posted_in`, `company`, `position`, `job_type`, `place`, `deadline`, `save_date`, `date`) VALUES
+(32, 20, 'linkedin', 'canonical', 'web developer', 'Remote-Permanent', 'Remote', '', '2022-12-16', '2022-12-16');
 
 -- --------------------------------------------------------
 
@@ -82,7 +108,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `passcode`, `profile`, `date`) VALUES
 (20, 'Ahmed', '1234sddfsd', '6399aee03eb298.70840144.png', '2022-12-14'),
-(21, 'Mehamed', '1234sdfgg', '6399bca4853b02.56997987.png', '2022-12-14');
+(24, 'Ahmed3', '1234sddfsd2', '639ae57f341169.46642509.', '2022-12-15'),
+(21, 'Mehamed', '1234sdfgg', '6399bca4853b02.56997987.png', '2022-12-14'),
+(25, 'test', '1234asfdss ', '639c767993f321.28750573.jpg', '2022-12-16');
 
 --
 -- Indexes for dumped tables
@@ -109,13 +137,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
