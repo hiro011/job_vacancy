@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Job Vacancy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
-    <link rel="stylesheet" href="/job.vacancy/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/job.vacancy/css/bootstrap.min.css"> -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="/job.vacancy/css/app.css">
     <link rel="stylesheet" href="/job.vacancy/css/my_style.css"> 
 	
@@ -131,7 +132,7 @@
                 </form>
                
 				<div class="table_wrapper">
-					<table border='1'  style="width:100%" >
+					<table border='1' class="table">
 						<thead>
 							<tr>    
 								<th>No</th>
