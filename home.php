@@ -66,8 +66,8 @@
             <section class="border view_sec rounded shadow-lg  bg-gray-200">
                 <h1 class="text-center text-3xl my-2">Applied Job Vacancies</h1>
                 
-				<?php
-                    // deleted successfully message
+				<!-- Messages -->
+				<?php 
                     if(isset($_SESSION['delete'])){
                         echo '<div class="flex  justify-around my-8">';
                         echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
@@ -351,16 +351,16 @@
 										
 										echo "</tr>";
 										$number++;
-									}
-									echo "</tbody>";
-									echo "</table>";
+									} 
 								}
 								else { 
-									echo "</tbody>";
-									echo "</table>";
-			
-									echo "<h2 class='text-center text-red-500 border border-blue-500'> No result found... </h2>"; 
+									echo '<tr>';
+									echo "<td colspan='10' class='text-center text-red-500 '> No result found... </td>"; 
+									echo '</tr>';
+									// echo "<h2 class='text-center text-red-500 border border-blue-500'> No result found... </h2>"; 
 								}
+								echo "</tbody>";
+								echo "</table>";
 							} 
 							else {
 								while($row = mysqli_fetch_array($result)){
@@ -419,26 +419,26 @@
 								echo "<tr>";
 								echo "<td>" . $number1 ."</td>"; // incrimented number
 								echo "<td>" . $row['id'] ."</td>"; // id
-								echo "<td>" . $row['posted_in'] . "</td>";
-								echo "<td>" . $row['company'] . "</td>";
-								echo "<td class='c-green'>" . $row['position'] . "</td>";
-								echo "<td>" . $row['job_type'] . "</td>";
-								echo "<td class='c-green'>" . $row['place'] . "</td>";
-								echo "<td>" . $row['deadline'] . "</td>";
-								echo "<td>" . $formattedDate2 . "</td>";
-								echo "<td>" . $formattedDate . "</td>";
+								echo "<td class='line-through'>" . $row['posted_in'] . "</td>";
+								echo "<td class='line-through'>" . $row['company'] . "</td>";
+								echo "<td class='c-green line-through'>" . $row['position'] . "</td>";
+								echo "<td class='line-through'>" . $row['job_type'] . "</td>";
+								echo "<td class='c-green line-through'>" . $row['place'] . "</td>";
+								echo "<td class='line-through'>" . $row['deadline'] . "</td>";
+								echo "<td class='line-through'>" . $formattedDate2 . "</td>";
+								echo "<td class='line-through'>" . $formattedDate . "</td>";
 								echo "<td><a href='/job.vacancy/delete_history.php?id=".$row['id']."' class='btn-del'>Delete </a> </td>";
 								echo "<td><a href='/job.vacancy/save_history.php?id=".$row['id']."' class='border bg-green-300 text-green-600 border-green-600'>Undo </a> </td>";
 								echo "</tr>";
 								$number1++;
 							}
+							echo '</tbody>';
+							echo '</table>';
 						}
 						else {
 							echo '<h2 class="text-center"> No delete history </h2>';
 						}
 					?>
-						</tbody>
-					</table>
 				</div>
             </section>
         </div>
