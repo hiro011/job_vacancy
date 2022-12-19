@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="/job.vacancy/css/app.css">
-    <link rel="stylesheet" href="/job.vacancy/css/my_style.css">
-    
+    <link rel="stylesheet" href="/job.vacancy/css/my_style.css?v=<?php echo time(); ?>">
+
 	<style> 
 		.profile-img-css{
 			width: 40px;
