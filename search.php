@@ -33,7 +33,8 @@
 								`user_id` = ? AND `position` LIKE ? OR 
 								`user_id` = ? AND `job_type` LIKE ? OR 
 								`user_id` = ? AND `place` LIKE ? OR 
-								`user_id` = ? AND `deadline` LIKE ?"
+								`user_id` = ? AND `deadline` LIKE ?
+								 ORDER BY `id` DESC"
                                 );
         $stmt->execute([$user_id, "%".$_POST["search"]."%", 
 						$user_id, "%".$_POST["search"]."%",

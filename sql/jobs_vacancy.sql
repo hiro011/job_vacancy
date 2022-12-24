@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2022 at 03:04 PM
+-- Generation Time: Dec 24, 2022 at 01:18 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -45,7 +45,9 @@ CREATE TABLE `deleted_data` (
 --
 
 INSERT INTO `deleted_data` (`id`, `user_id`, `posted_in`, `company`, `position`, `job_type`, `place`, `deadline`, `save_date`, `date`) VALUES
-(32, 20, 'linkedin', 'canonical', 'web developer', 'Remote-Permanent', 'Remote', '', '2022-12-16', '2022-12-16');
+(1, 20, 'elelanjobs', 'stella construction', 'Junior programmer', 'permanent', 'Addis Ababa', '19-nov', '2022-12-05', '2022-12-19'),
+(2, 20, 'dereja', 'CNET', 'software developer', 'permanent', 'Addis Ababa', '17-Nov', '2022-12-05', '2022-12-19'),
+(32, 20, 'linkedin', 'canonical', 'web developer', 'Remote-Permanent', 'Remote', '', '2022-12-16', '2022-12-17');
 
 -- --------------------------------------------------------
 
@@ -70,9 +72,7 @@ CREATE TABLE `jobs` (
 --
 
 INSERT INTO `jobs` (`id`, `user_id`, `posted_in`, `company`, `position`, `job_type`, `place`, `deadline`, `date`) VALUES
-(1, 20, 'elelanjobs', 'stella construction', 'Junior programmer', 'permanent', 'Addis Ababa', '19-nov', '2022-12-05'),
-(2, 20, 'dereja', 'CNET', 'software developer', 'permanent', 'Addis Ababa', '17-Nov', '2022-12-05'),
-(3, 20, 'freelance', '360 ground', 'fullstack developer', 'permanent', 'Addis Ababa', NULL, '2022-12-05'),
+(3, 20, 'freelance', '360 ground', 'fullstack developer', 'permanent', 'Addis Ababa', '', '2022-12-05'),
 (5, 20, 'linkedin', 'Addis software', 'fullstack dev', 'permanent', 'Addis Ababa', '30-nov', '2022-12-05'),
 (6, 20, 'ethiojobszone', 'gadaa bank', 'IS', 'permanent', 'Addis Ababa', '08-dec', '2022-12-06'),
 (9, 20, 'freelance', '', 'it', 'permanent', 'Adama', '', '2022-12-06'),
@@ -86,7 +86,11 @@ INSERT INTO `jobs` (`id`, `user_id`, `posted_in`, `company`, `position`, `job_ty
 (21, 20, 'freelance', 'COFIX SYSTEMS PLC', 'Innovation and System Development Officer', 'contractual', 'Addis Ababa', '19-Dec', '2022-12-14'),
 (26, 20, 'ethiopian vacancy', 'ethiopia commodity exchange', 'Junior IT Support', 'permanent', 'Addis Ababa', '19-Dec', '2022-12-14'),
 (27, 21, 'sef', 'sfd', 'it', 'intern', '', '17-Nov', '2022-12-14'),
-(28, 21, 'linkedin', 'Addis software', 'ed', '', '', '', '2022-12-14');
+(28, 21, 'linkedin', 'Addis software', 'ed', '', '', '', '2022-12-14'),
+(36, 20, 'freelance', '', 'Experienced Laravel Developer', 'permanent', 'Addis Ababa', '', '2022-12-17'),
+(37, 20, 'freelance', 'private', 'Laravel developer', 'contractual', 'Remote', '', '2022-12-23'),
+(38, 20, 'ethiopian vacancy', 'the association of ethiopians educated in germany (AEEG)', 'Senior IT and Data Manager', 'permanent', 'Addis Ababa', '27-Dec', '2022-12-23'),
+(39, 20, 'ethiopian job vacancy', 'Droga Group', 'Junior IT Security Officer ', 'permanent', 'Addis Ababa', '29-Dec', '2022-12-24');
 
 -- --------------------------------------------------------
 
@@ -110,11 +114,18 @@ INSERT INTO `users` (`id`, `username`, `passcode`, `profile`, `date`) VALUES
 (20, 'Ahmed', '1234sddfsd', '6399aee03eb298.70840144.png', '2022-12-14'),
 (24, 'Ahmed3', '1234sddfsd2', '639ae57f341169.46642509.', '2022-12-15'),
 (21, 'Mehamed', '1234sdfgg', '6399bca4853b02.56997987.png', '2022-12-14'),
-(25, 'test', '1234asfdss ', '639c767993f321.28750573.jpg', '2022-12-16');
+(25, 'test', '1234asfdss ', '639c767993f321.28750573.jpg', '2022-12-16'),
+(26, 'test2', '1234sddwdasfsd', '639dd003090031.01931135.jpg', '2022-12-17');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `deleted_data`
+--
+ALTER TABLE `deleted_data`
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `jobs`
@@ -137,13 +148,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -160,7 +160,7 @@
 									. mysqli_connect_error());
 							}
 							$user_id = $_SESSION['user_id'];
-							$result =  mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id'");
+							$result =  mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id' ORDER BY id DESC");
 
 							$number = 1;
 
