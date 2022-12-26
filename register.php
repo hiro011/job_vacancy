@@ -33,8 +33,8 @@
 
 <body class="flex flex-wrap justify-center bg-blue-100">
     <div class="flex w-full justify-center px-4 bg-purple-900 text-white">
-        <a class="mx-3 my-4" href="/job.vacancy/login.php">Login</a>
-        <a class="mx-3 my-4 px-2 active" href="/job.vacancy/register.php">Register</a>
+        <a class="mx-3 my-4 nav-a" href="/job.vacancy/login.php">Login</a>
+        <a class="mx-3 my-4 nav-a active" href="/job.vacancy/register.php">Register</a>
     </div>
 
     <div class="my-1 w-full flex justify-center">
@@ -46,7 +46,7 @@
                     session_start();
 					//Message,If file size greater than allowed size 
                     if(isset($_SESSION['size'])){
-                        echo '<div class="flex justify-around my-8">';
+                        echo '<div class="flex justify-around my-8 cursor-pointer" title="Click to hide" onclick="hide(this)">';
                         echo '<div class="p-3 bg-red-300 w-10/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> File Size Limit beyond acceptance! </span>';
                         echo '</div>';
@@ -54,7 +54,7 @@
                     } 
 					//Message,If user already exist
                     if(isset($_SESSION['user_register'])){
-                        echo '<div class="flex justify-around my-8">';
+                        echo '<div class="flex justify-around my-8 cursor-pointer" title="Click to hide" onclick="hide(this)">';
                         echo '<div class="p-3 bg-red-300 w-10/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> Sorry! this user already exist. </span>';
                         echo '</div>';
@@ -63,7 +63,7 @@
 					session_unset();
                 ?>
                 
-                <form class="my-4" action="register_action.php" method="post" enctype="multipart/form-data">
+                <form class="my-4" action="action_register.php" method="post" enctype="multipart/form-data">
                     <div class="flex justify-center mx-3 w-10/12 my-4">
 						<div>
 							<label for="image" class="flex flex-col justify-center cursor-pointer profile-img-label mx-5">
@@ -113,6 +113,8 @@
             }
         }
     </script>
+    
+	<script src="js/javascript.js"></script>
 </body>
 
 </html>

@@ -36,8 +36,8 @@
 	?>
     <div class="flex w-full justify-between px-4 bg-purple-900 text-white">
         <div class="my-4">
-            <a class="mx-3" href="/job.vacancy/home.php">Home</a>
-            <a class="mx-3 px-2 active" href="/job.vacancy/insert.php">New</a>
+            <a class="mx-3 nav-a" href="/job.vacancy/home.php">Home</a>
+            <a class="mx-3 nav-a active" href="/job.vacancy/insert.php">New</a>
         </div>
 		
 		<div class="flex flex-col justify-center">
@@ -61,7 +61,7 @@
                 <h1 class="text-center text-3xl my-2">Enter the info</h1>
                 <?php 
                     if(isset($_SESSION['position'])){
-                        echo '<div class="flex justify-around my-8">';
+                        echo '<div class="flex justify-around my-8 cursor-pointer" title="Click to hide" onclick="hide(this)">';
                         echo '<div class="p-3 bg-green-300 w-10/12 text-green-800 rounded shadow-sm text-center">';
                         echo '<span> Data inserted successfuly 🙂 </span>';
                         echo '</div>';
@@ -70,7 +70,7 @@
 					unset($_SESSION['position']);
                 ?>
                 <hr>
-                <form class="my-4" action="insert_action.php"  method="post">
+                <form class="my-4" action="action_insert.php"  method="post">
                     <div class="flex justify-around my-4">
                         <div class="flex flex-wrap w-10/12">
                             <input type="text" name="posted_in" title="Posted in" class="p-2 rounded border shadow-sm w-full" placeholder="Posted in" />
@@ -133,6 +133,7 @@
         </div>
     </div>
         
+	<script src="js/javascript.js"></script>
 </body>
 
 </html>

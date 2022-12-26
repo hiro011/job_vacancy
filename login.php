@@ -15,8 +15,8 @@
 
 <body class="flex flex-wrap justify-center bg-blue-100">
     <div class="flex w-full justify-center px-4 bg-purple-900 text-white">
-        <a class="mx-3 my-4 px-2 active" href="/job.vacancy/login.php">Login</a>
-        <a class="mx-3 my-4" href="/job.vacancy/register.php">Register</a>
+        <a class="mx-3 my-4 nav-a active" href="/job.vacancy/login.php">Login</a>
+        <a class="mx-3 my-4 nav-a" href="/job.vacancy/register.php">Register</a>
     </div>
 
     <div class="my-1 w-full flex justify-center">
@@ -29,7 +29,7 @@
                     session_start();
                     // no user account message
                     if(isset($_SESSION['user'])){
-                        echo '<div class="flex justify-around my-8">';
+                        echo '<div class="flex justify-around my-8 cursor-pointer" title="Click to hide" onclick="hide(this)">';
                         echo '<div class="p-3 bg-red-300 w-10/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> Username does not exist! </span>';
                         echo '</div>';
@@ -38,7 +38,7 @@
 					
 					// you need login message
                     if(isset($_SESSION['login'])){
-                        echo '<div class="flex justify-around my-8">';
+                        echo '<div class="flex justify-around my-8 cursor-pointer" title="Click to hide" onclick="hide(this)">';
                         echo '<div class="p-3 bg-red-300 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> you have to login to access this page! </span>';
                         echo '</div>';
@@ -47,7 +47,7 @@
 					
                     // wrong password message
                     if(isset($_SESSION['password'])){
-                        echo '<div class="flex justify-around my-8">';
+                        echo '<div class="flex justify-around my-8 cursor-pointer" title="Click to hide" onclick="hide(this)">';
                         echo '<div class="p-3 bg-red-300 w-10/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> Wrong password! </span>';
                         echo '</div>';
@@ -57,7 +57,7 @@
 					session_unset();
                 ?>
                 
-                <form class="my-4" action="login_verify.php"  method="post">
+                <form class="my-4" action="action_login.php"  method="post">
                     <div class="flex justify-around my-4">
                         <div class="flex flex-wrap w-10/12">
                             <input type="text" name="username" title="username" class="p-2 rounded border shadow-sm w-full" placeholder="Username" required />
@@ -86,6 +86,7 @@
         </div>
     </div>
 
+	<script src="js/javascript.js"></script>
 </body>
 
 </html>

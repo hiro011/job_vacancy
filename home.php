@@ -41,8 +41,8 @@
         <div class="my-4">
 			<?php 
 				if($user != 'Guest'){
-					echo '<a class="mx-3 px-2 active" href="/job.vacancy/home.php">Home</a>';
-					echo '<a class="mx-3" href="/job.vacancy/insert.php">New</a>';
+					echo '<a class="mx-3 nav-a active" href="/job.vacancy/home.php">Home</a>';
+					echo '<a class="mx-3 nav-a" href="/job.vacancy/insert.php">New</a>';
 				}
 			?>
         </div>
@@ -71,7 +71,7 @@
 				<!-- Messages -->
 				<?php 
                     if(isset($_SESSION['delete'])){
-                        echo '<div class="flex  justify-around my-8">';
+                        echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
                         echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> Data deleted successfuly 🙂 </span>';
                         echo '</div>';
@@ -80,7 +80,7 @@
 					unset($_SESSION['delete']); 
 					
 					if(isset($_SESSION['delete2'])){
-                        echo '<div class="flex  justify-around my-8">';
+                        echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
                         echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> Data undo successful 🙂 </span>';
                         echo '</div>';
@@ -89,7 +89,7 @@
 					unset($_SESSION['delete2']); 
 					
                     if(isset($_SESSION['history'])){
-                        echo '<div class="flex  justify-around my-8">';
+                        echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
                         echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> Unable to save data history! </span>';
                         echo '</div>';
@@ -98,17 +98,16 @@
 					unset($_SESSION['history']); 
 
                     if(isset($_SESSION['history_deleted'])){
-                        echo '<div class="flex  justify-around my-8">';
+                        echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
                         echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> History data deleted successfuly 🙂 </span>';
                         echo '</div>';
                         echo '</div>';
                     }
-					unset($_SESSION['history_deleted']); 
-					
+					unset($_SESSION['history_deleted']); 			
 					
                     if(isset($_SESSION['undo'])){
-                        echo '<div class="flex  justify-around my-8">';
+                        echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
                         echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
                         echo '<span> Error! failed to undo. </span>';
                         echo '</div>';
@@ -120,7 +119,7 @@
                 <hr>
                 
                 <form action="home.php" method="post" class="flex justify-center my-3">
-                    <a href="/job.vacancy/home.php" class="btn-del">clear</a>
+                    <a href="/job.vacancy/home.php" class="btn-del p-1">clear</a>
                     <input type="text" name="search" class="search" 
                         <?php 
                             // set the input value to searched key word
@@ -133,7 +132,7 @@
                 </form>
                
 				<div class="table_wrapper">
-					<table border='1' class="table">
+					<table border='1'>
 						<thead>
 							<tr>    
 								<th>No</th>
@@ -166,7 +165,7 @@
 
 							if (isset($_POST["search"])) { /* check if search button/input is clicked */
 								// (B1) SEARCH FOR USERS
-								require "search.php";
+								require "action_search.php";
 								if (count($result) > 0) { 
 									foreach ($result as $row) {
 										$formattedDate = date("d-M-Y", strtotime($row["date"]));
@@ -349,7 +348,7 @@
 										} else echo "<td>" . $row['deadline'] . "</td>";
 										
 										echo "<td>" . $formattedDate . "</td>";
-										echo "<td><a href='/job.vacancy/delete.php?id=".$row['id']."' class='btn-del'>Delete </a> </td>";
+										echo "<td><a href='/job.vacancy/action_delete.php?id=".$row['id']."' class='btn-del p-1'>Delete </a> </td>";
 										
 										echo "</tr>";
 										$number++;
@@ -377,7 +376,7 @@
 									echo "<td class='c-green'>" . $row['place'] . "</td>";
 									echo "<td>" . $row['deadline'] . "</td>";
 									echo "<td>" . $formattedDate . "</td>";
-									echo "<td><a href='/job.vacancy/delete.php?id=".$row['id']."' class='btn-del'>Delete </a> </td>";
+									echo "<td><a href='/job.vacancy/action_delete.php?id=".$row['id']."' class='btn-del p-1'>Delete </a> </td>";
 									echo "</tr>";
 									$number++;
 								}
@@ -429,8 +428,8 @@
 								echo "<td class='line-through'>" . $row['deadline'] . "</td>";
 								echo "<td class='line-through'>" . $formattedDate2 . "</td>";
 								echo "<td class='line-through'>" . $formattedDate . "</td>";
-								echo "<td><a href='/job.vacancy/delete_history.php?id=".$row['id']."' class='btn-del'>Delete </a> </td>";
-								echo "<td><a href='/job.vacancy/save_history.php?id=".$row['id']."' class='border bg-green-300 text-green-600 border-green-600'>Undo </a> </td>";
+								echo "<td><a href='/job.vacancy/action_delete_history.php?id=".$row['id']."' class='btn-del p-1'>Delete </a> </td>";
+								echo "<td><a href='/job.vacancy/action_save_history.php?id=".$row['id']."' class='border bg-green-300 p-1 text-green-600 border-green-600'>Undo </a> </td>";
 								echo "</tr>";
 								$number1++;
 							}
@@ -445,6 +444,8 @@
             </section>
         </div>
     </div>
+	
+	<script src="js/javascript.js"></script>
 </body>
 
 </html>

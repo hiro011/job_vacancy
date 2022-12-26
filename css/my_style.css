@@ -4,8 +4,7 @@
 	background-color: orange;
 	border-radius: 10%;
 	color: red;
-	text-align: center;
-	padding: 5px;
+	text-align: center; 
 }
  
 .btn-del:hover{
@@ -20,7 +19,15 @@
 
 .active{
 	background-color: #6c42f5;
-	border-radius: 3px;
+}
+
+.nav-a{
+	padding:0.25rem 0.5rem;
+	border-radius: 5px;
+}
+.nav-a:hover {
+	color: silver;
+	opacity: 0.7;
 }
  
 .h-op-75:hover{
@@ -68,22 +75,23 @@ th, td{
 	border: 1px solid;
 	border-color: #3bbfeb;
 }
-.table_wrapper{
-	width: 100%;
+ 
+.message_alert{
+	cursor: pointer
 }
+ 
 @media (max-width: 600px) {
-	 
-	.view_sec h1{
-		font-size: 1.25rem
-	}
-	.table_wrapper{
-		border: 1px solid red; 
-	}
 	.view_sec{
 		font-size: .75rem;
 		margin-left: 0;
 		margin-right: 0;
 		padding: 1rem;
+	}
+	.table_wrapper{
+		border: 1px solid red;
+	} 
+	.view_sec h1{
+		font-size: 1.25rem
 	}
 	.view_sec2{
 		width: 100%;
