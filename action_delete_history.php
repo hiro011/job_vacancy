@@ -17,13 +17,13 @@
 	$id = $_REQUEST['id'];
 	
 	// Performing delete query execution 
-	$sql = "DELETE FROM deleted_data WHERE id = '$id'";
+	$sql = "DELETE FROM deleted_jobs WHERE id = '$id'";
 	if(mysqli_query($conn, $sql)){
 		 
 		$_SESSION['history_deleted'] = $id;
 		
 		mysqli_close($conn);
-		header('Location: home.php');
+		header('Location: home.php#deleted_history');
 		exit;
 	} 
 	else{

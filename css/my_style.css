@@ -72,8 +72,7 @@ table{
 	overflow-x: auto;
 }
 th, td{
-	border: 1px solid;
-	border-color: #3bbfeb;
+		border: 1px solid #3bbfeb;
 }
  
 .message_alert{

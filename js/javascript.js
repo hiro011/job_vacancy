@@ -8,3 +8,6 @@
 function hide(messege_div) {
 	messege_div.style.display = "none";
 }
+
+
+	

@@ -133,7 +133,12 @@
         </div>
     </div>
         
-	<script src="js/javascript.js"></script>
+	<!-- <script src="js/javascript.js"></script> -->
+  <script>
+		function hide(messege_div) {
+			messege_div.style.display = "none";
+		}
+	</script>
 </body>
 
 </html>
