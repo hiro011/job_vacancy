@@ -2,23 +2,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Job Vacancy</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Job Vacancy</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="/job.vacancy/css/app.css">
-    <!-- <link rel="stylesheet" href="/job.vacancy/css/my_style.css"> --> 
+	<link rel="stylesheet" href="/job.vacancy/css/app.css">
 	<link rel="stylesheet" href="/job.vacancy/css/my_style.css?v=<?php echo time(); ?>">
 
-	
 	<style>
 		.profile-img-css{
 			width: 40px;
 			height: 40px;
 			object-fit: cover;
 			border-radius: 50%;
+		}
+		.bg-blue-300:hover{
+			opacity: 0.7
 		}
 	</style>
 </head>
@@ -62,7 +63,7 @@
         </div>
     </div>
 	
-    <div class="my-10 w-full flex justify-center">
+    <div class="w-full flex justify-center">
                 
         <div class="my-1 flex justify-center w-full">
             <section class="border view_sec rounded shadow-lg  bg-gray-200">
@@ -70,69 +71,90 @@
                 
 				<!-- Messages -->
 				<?php 
-                    if(isset($_SESSION['delete'])){
-                        echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
-                        echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
-                        echo '<span> Data deleted successfuly 🙂 </span>';
-                        echo '</div>';
-                        echo '</div>';
-                    } 
+					if(isset($_SESSION['delete'])){
+							echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
+							echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
+							echo '<span> Data deleted successfuly 🙂 </span>';
+							echo '</div>';
+							echo '</div>';
+					} 
 					unset($_SESSION['delete']); 
 					
-					if(isset($_SESSION['delete2'])){
-                        echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
-                        echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
-                        echo '<span> Data undo successful 🙂 </span>';
-                        echo '</div>';
-                        echo '</div>';
-                    } 
+					if(isset($_SESSION['undo'])){
+							echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
+							echo '<div class="p-3 message_alert bg-green-300 w-6/12 text-green-800 rounded shadow-sm text-center">';
+							echo '<span> Data undo successful 🙂 </span>';
+							echo '</div>';
+							echo '</div>';
+					} 
 					unset($_SESSION['delete2']); 
-					
-                    if(isset($_SESSION['history'])){
-                        echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
-                        echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
-                        echo '<span> Unable to save data history! </span>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
+
+					if(isset($_SESSION['history'])){
+							echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
+							echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
+							echo '<span> Unable to save data history! </span>';
+							echo '</div>';
+							echo '</div>';
+					}
 					unset($_SESSION['history']); 
 
-                    if(isset($_SESSION['history_deleted'])){
-                        echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
-                        echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
-                        echo '<span> History data deleted successfuly 🙂 </span>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
+					if(isset($_SESSION['history_deleted'])){
+							echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
+							echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
+							echo '<span> History data deleted successfuly 🙂 </span>';
+							echo '</div>';
+							echo '</div>';
+					}
 					unset($_SESSION['history_deleted']); 			
 					
-                    if(isset($_SESSION['undo'])){
-                        echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
-                        echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
-                        echo '<span> Error! failed to undo. </span>';
-                        echo '</div>';
-                        echo '</div>';
-                    }
+					if(isset($_SESSION['undoerror'])){
+							echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
+							echo '<div class="p-3 message_alert bg-red-300 w-6/12 text-orange-800 rounded shadow-sm text-center">';
+							echo '<span> Error! failed to undo. </span>';
+							echo '</div>';
+							echo '</div>';
+					}
 					unset($_SESSION['undo']); 
-                ?>
+				?>
 				
-                <hr>
-                
-                <form action="home.php" method="post" class="flex justify-center my-3">
-                    <a href="/job.vacancy/home.php" class="btn-del p-1">clear</a>
-                    <input type="text" name="search" class="search" 
-                        <?php 
-                            // set the input value to searched key word
-                            // if it searched
-                            if(isset($_POST["search"])){
-								echo 'value="'.$_POST["search"].'"';}
-                        ?> 
-                        placeholder="search...">
-                    <input type="submit" value="Search" class="btn">
-                </form>
-               
+				<hr>
+				
+				<form action="action_search.php" method="post" class="flex justify-center my-3">
+					<a href="/job.vacancy/home.php" class="btn-del p-1">clear</a>
+					<input type="text" name="search" class="search" 
+						<?php 
+							// set the input value to searched key word
+							// if it searched
+							if(isset($_SESSION['postsearch'])){
+								echo 'value="'.$_SESSION['postsearch'].'"';}
+						?> 
+						placeholder="search..." >
+					<input type="submit" value="Search" class="btn">
+				</form>
+              
+				<form action="action_sort.php" method="post" class="flex justify-center my-3">
+					<select name="sort" class="cursor-pointer rounded">
+						<option value= '0'
+							<?php 
+								if(isset($_SESSION['sort']) && ($_SESSION['sort'] === '0')){
+									echo "selected";
+								}
+							?>
+						> Latest </option>
+						
+						<option value='1'
+							<?php 
+								if(isset($_SESSION['sort']) && ($_SESSION['sort'] === '1')){
+									echo "selected";
+								}
+							?>
+						> Oldest </option>
+					</select>
+					<input type="submit" value="Sort" class="rounded py-2 px-3 bg-blue-300">
+				</form>
+					
 				<div class="table_wrapper">
-					<table border='1'>
+					<table class="table">
 						<thead>
 							<tr>    
 								<th>No</th>
@@ -159,13 +181,20 @@
 									. mysqli_connect_error());
 							}
 							$user_id = $_SESSION['user_id'];
-							$result =  mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id' ORDER BY id DESC");
-
+							
+							if(isset($_SESSION['sortResult'])){
+								$result = mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id'");
+							} else{
+								$result =  mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id' ORDER BY id DESC");
+							}
+							
 							$number = 1;
 
-							if (isset($_POST["search"])) { /* check if search button/input is clicked */
-								// (B1) SEARCH FOR USERS
-								require "action_search.php";
+							if (isset($_SESSION['searchResult'])) { /* check if search button/input is clicked */
+								
+								$result = $_SESSION['searchResult'];
+								$_POST["search"] = $_SESSION['postsearch'];
+								
 								if (count($result) > 0) { 
 									foreach ($result as $row) {
 										$formattedDate = date("d-M-Y", strtotime($row["date"]));
@@ -348,7 +377,8 @@
 										} else echo "<td>" . $row['deadline'] . "</td>";
 										
 										echo "<td>" . $formattedDate . "</td>";
-										echo "<td><a href='/job.vacancy/action_delete.php?id=".$row['id']."' class='btn-del p-1'>Delete </a> </td>";
+										// echo "<td><a href='/job.vacancy/action_delete.php?id=".$row['id']."' class='btn-del p-1'>Delete </a> </td>";
+										echo "<td><button onclick='deleteJob(".$row["id"].")' class='btn-del p-1'>Delete </button> </td>";
 										
 										echo "</tr>";
 										$number++;
@@ -358,7 +388,6 @@
 									echo '<tr>';
 									echo "<td colspan='10' class='text-center text-red-500 '> No result found... </td>"; 
 									echo '</tr>';
-									// echo "<h2 class='text-center text-red-500 border border-blue-500'> No result found... </h2>"; 
 								}
 								echo "</tbody>";
 								echo "</table>";
@@ -376,7 +405,8 @@
 									echo "<td class='c-green'>" . $row['place'] . "</td>";
 									echo "<td>" . $row['deadline'] . "</td>";
 									echo "<td>" . $formattedDate . "</td>";
-									echo "<td><a href='/job.vacancy/action_delete.php?id=".$row['id']."' class='btn-del p-1'>Delete </a> </td>";
+									// echo "<td><a href='/job.vacancy/action_delete.php?id1=".$row['id']."' class='btn-del p-1'>Delete </a> </td>";
+									echo "<td><button onclick='deleteJob(".$row["id"].")' class='btn-del p-1'>Delete </button> </td>";
 									echo "</tr>";
 									$number++;
 								}
@@ -385,15 +415,15 @@
 							}
 						?>
 					
-					<h1 class="text-center text-3xl my-2">Deleted History</h1>
+					<h1 class="text-center text-3xl my-2" id="deleted_history">Deleted History</h1>
 					<hr>
 					<?php 
-						$result2 =  mysqli_query($conn, "SELECT * FROM deleted_data WHERE user_id = '$user_id'");
+						$result2 =  mysqli_query($conn, "SELECT * FROM deleted_jobs WHERE user_id = '$user_id'");
 						$check = mysqli_fetch_array($result2,MYSQLI_ASSOC);
 						
 						$count = mysqli_num_rows($result2);
 						if($count > 0){
-							echo '<table border="1" >';
+							echo '<table class="table" >';
 							echo '<thead>
 									<tr>    
 										<th>No</th>
@@ -406,20 +436,20 @@
 										<th>Deadline</th>
 										<th>Inserted Date</th>
 										<th>Deleted Date</th>
-										<th>Option</th>
+										<th>Delete</th>
 										<th>Undo</th>
 									</tr>  
 								</thead>';
 							echo '<tbody>';
 							
-							$result2 =  mysqli_query($conn, "SELECT * FROM deleted_data WHERE user_id = '$user_id'");
+							$result2 =  mysqli_query($conn, "SELECT * FROM deleted_jobs WHERE user_id = '$user_id'");
 							$number1 = 1;
 							while($row = mysqli_fetch_array($result2)){
 								$formattedDate = date("d-M", strtotime($row["date"]));
 								$formattedDate2 = date("d-M", strtotime($row["save_date"]));
 								echo "<tr>";
 								echo "<td>" . $number1 ."</td>"; // incrimented number
-								echo "<td>" . $row['id'] ."</td>"; // id
+								echo "<td>" . $row['job_id'] ."</td>"; // id
 								echo "<td class='line-through'>" . $row['posted_in'] . "</td>";
 								echo "<td class='line-through'>" . $row['company'] . "</td>";
 								echo "<td class='c-green line-through'>" . $row['position'] . "</td>";
@@ -428,8 +458,9 @@
 								echo "<td class='line-through'>" . $row['deadline'] . "</td>";
 								echo "<td class='line-through'>" . $formattedDate2 . "</td>";
 								echo "<td class='line-through'>" . $formattedDate . "</td>";
-								echo "<td><a href='/job.vacancy/action_delete_history.php?id=".$row['id']."' class='btn-del p-1'>Delete </a> </td>";
-								echo "<td><a href='/job.vacancy/action_save_history.php?id=".$row['id']."' class='border bg-green-300 p-1 text-green-600 border-green-600'>Undo </a> </td>";
+								// echo "<td><a href='/job.vacancy/action_delete_history.php?id=".$row['id']."' class='btn-del p-1'>Delete </a> </td>";
+								echo '<td><button onclick="deleteHistory('.$row['id'].')" class="btn-del p-1">Delete </button> </td>';
+								echo "<td><a href='/job.vacancy/action_undo_delete.php?id=".$row['id']."' class='border bg-green-300 p-1 text-green-600 border-green-600'>Undo </a> </td>";
 								echo "</tr>";
 								$number1++;
 							}
@@ -441,11 +472,32 @@
 						}
 					?>
 				</div>
-            </section>
-        </div>
-    </div>
+				<?php
+					 unset($_SESSION['searchResult']);
+					 unset($_SESSION['postsearch']);
+				?>
+			</section>
+		</div>
+	</div>
 	
-	<script src="js/javascript.js"></script>
+	<!-- <script src="js/javascript.js"></script> -->
+	<script>
+		function hide(messege_div) {
+			messege_div.style.display = "none";
+		}
+		function deleteJob(id){
+			if(confirm("Are you sure to delele?")){
+				window.open("action_delete.php?id="+id, "_self", "", "");
+			}
+		}
+		function deleteHistory(id){
+			if(confirm("Are you sure to delele?")){
+				window.open("action_delete_history.php?id="+id, "_self", "", "");
+			}
+		}
+	</script>
+ 
+
 </body>
 
 </html>

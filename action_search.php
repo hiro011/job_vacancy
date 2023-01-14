@@ -1,5 +1,9 @@
 <?php
 
+	if(!isset($_SESSION)){
+		session_start(); 
+	}
+
 	// servername => localhost
 	// username => root
 	// password => empty
@@ -20,32 +24,54 @@
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
     ]);
     
-	// session_start();
-	$user_id = $_SESSION['user_id'];
+	
+		$user_id = $_SESSION['user_id'];
     // (C) SEARCH
     if($_POST["search"] == ''){
         header('Location: home.php');
 		exit;
     } else {
+				if(isset($_SESSION['sort']) && ($_SESSION['sort'] === '1')){
         $stmt = $pdo->prepare("SELECT * FROM `jobs` WHERE 
-                                `user_id` = ? AND `posted_in` LIKE ? OR 
+                `user_id` = ? AND `posted_in` LIKE ? OR 
 								`user_id` = ? AND `company` LIKE ? OR 
 								`user_id` = ? AND `position` LIKE ? OR 
 								`user_id` = ? AND `job_type` LIKE ? OR 
 								`user_id` = ? AND `place` LIKE ? OR 
 								`user_id` = ? AND `deadline` LIKE ?
-								 ORDER BY `id` DESC"
-                                );
+								 ORDER BY `id` ASC" );
+				} 
+				else {
+					$stmt = $pdo->prepare("SELECT * FROM `jobs` WHERE 
+                `user_id` = ? AND `posted_in` LIKE ? OR 
+								`user_id` = ? AND `company` LIKE ? OR 
+								`user_id` = ? AND `position` LIKE ? OR 
+								`user_id` = ? AND `job_type` LIKE ? OR 
+								`user_id` = ? AND `place` LIKE ? OR 
+								`user_id` = ? AND `deadline` LIKE ?
+								 ORDER BY `id` DESC" );
+				}					
+								 
         $stmt->execute([$user_id, "%".$_POST["search"]."%", 
 						$user_id, "%".$_POST["search"]."%",
 						$user_id, "%".$_POST["search"]."%",
 						$user_id, "%".$_POST["search"]."%",
 						$user_id, "%".$_POST["search"]."%",
 						$user_id, "%".$_POST["search"]."%"]);
+						
         $result = $stmt->fetchAll();
+				
         if (isset($_POST["ajax"])) { 
-            echo json_encode($result); 
-        }
+						$_SESSION['result']=json_encode($result);
+            // echo json_encode($result); 
+						 header('Location: home.php');
+						 exit;
+        }else{
+					$_SESSION['searchResult'] = $result;
+					$_SESSION['postsearch'] = $_POST["search"];
+					header('Location: home.php');
+						 exit;
+				}
     }
 	 
 ?>

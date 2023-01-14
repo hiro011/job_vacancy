@@ -1,5 +1,6 @@
-<?php
 
+<?php
+ 
 	// servername => localhost
 	// username => root
 	// password => empty
@@ -14,11 +15,11 @@
 	}
  
 	session_start(); 
-	$id = $_REQUEST['id'];
+	$job_id = $_REQUEST['id'];
 	
 	// Saving history
 	$user_id = $_SESSION['user_id'];
-	$result =  mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id' and id = '$id'");
+	$result =  mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id' and id = '$job_id'");
 	$row2 = mysqli_fetch_array($result,MYSQLI_ASSOC);		
  
 	$user_id = $row2['user_id'];
@@ -32,16 +33,16 @@
 	$date = date("y/m/d");
 
 	// Performing insert query execution
-	$sql1 = "INSERT INTO deleted_data VALUES ('$id', '$user_id', '$posted_in',
+	$sql1 = "INSERT INTO deleted_jobs VALUES ('$id', '$job_id', '$user_id', '$posted_in',
 		'$company', '$position', '$job_type', '$place', '$deadline', 
 		'$save_date', '$date')" ;
 		
 	if(mysqli_query($conn, $sql1)){
 		// Performing delete query execution 
-		$sql = "DELETE FROM jobs WHERE id = '$id'";
+		$sql = "DELETE FROM jobs WHERE id = '$job_id'";
 		if(mysqli_query($conn, $sql)){
 			 
-			$_SESSION['delete'] = $id;
+			$_SESSION['delete'] = $job_id;
 			
 			mysqli_close($conn);
 			header('Location: home.php');
@@ -53,11 +54,13 @@
 		}
 	}
 	else{
-		$_SESSION['history'] = $id;
+		$_SESSION['history'] = $job_id;
 		 
 		mysqli_close($conn);
 		header('Location: home.php');
 		exit;
 	}
 	
+	
 ?>
+
