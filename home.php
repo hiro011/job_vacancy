@@ -40,15 +40,15 @@
 		}
 	?>
 	
-    <div class="flex w-full justify-between px-4 bg-purple-900 text-white">
-        <div class="my-4">
+    <div class="flex w-full fixed-nav justify-between px-4 bg-purple-900 text-white">
+			<div class="my-4">
 			<?php 
 				if($user != 'Guest'){
 					echo '<a class="mx-3 nav-a active" href="/job.vacancy/home.php">Home</a>';
 					echo '<a class="mx-3 nav-a" href="/job.vacancy/insert.php">New</a>';
 				}
 			?>
-        </div>
+			</div>
 		
         <div class="flex flex-col justify-center">
 			<?php 
@@ -65,9 +65,9 @@
         </div>
     </div>
 	
-    <div class="w-full flex justify-center">
+    <div class="w-full flex justify-center my-16">
                 
-        <div class="my-1 flex justify-center w-full">
+        <div class="my-4 flex justify-center w-full">
             <section class="border view_sec rounded shadow-lg  bg-gray-200">
                 <h1 class="text-center text-3xl my-2">Applied Job Vacancies</h1>
                 
@@ -84,12 +84,21 @@
 					
 					if(isset($_SESSION['undo'])){
 							echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
-							echo '<div class="p-3 message_alert bg-green-300 w-6/12 text-green-800 rounded shadow-sm text-center">';
+							echo '<div class="p-3 message_alert bg-green-500 w-6/12 text-green-800 rounded shadow-sm text-center">';
 							echo '<span> Data undo successful 🙂 </span>';
 							echo '</div>';
 							echo '</div>';
 					} 
 					unset($_SESSION['delete2']); 
+					
+					if(isset($_SESSION['update'])){
+							echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
+							echo '<div class="p-3 message_alert bg-green-500 w-6/12 text-green-800 rounded shadow-sm text-center">';
+							echo '<span> Update data successful 🙂 </span>';
+							echo '</div>';
+							echo '</div>';
+					} 
+					unset($_SESSION['update']); 
 
 					if(isset($_SESSION['history'])){
 							echo '<div class="flex  justify-around my-8" title="Click to hide" onclick="hide(this)">';
@@ -131,7 +140,7 @@
 								echo 'value="'.$_SESSION['postsearch'].'"';}
 						?> 
 						placeholder="search..." >
-					<input type="submit" value="Search" class="btn">
+					<input type="submit" value="Search" class="btn bg-green-600">
 				</form>
               
 				<form action="action_sort.php" method="post" class="flex justify-center my-3">
@@ -154,6 +163,133 @@
 					</select>
 					<input type="submit" value="Sort" class="rounded py-2 px-3 bg-blue-300">
 				</form>
+				
+				<?php 
+					if(isset($_SESSION['row'])){
+						$edit_row = $_SESSION['row'];
+						unset($_SESSION['row']);
+				?>
+				
+				
+				<div id="modal_edit" class="modal flex justify-center">
+					<div class="m-4 form-container border shadow rounded p-4 w-6/12">
+						<form action="action_update.php"  method="post">
+						 
+							<div class="flex justify-around my-4">
+									<div class="flex flex-wrap w-10/12">
+											<input type="text" name="posted_in" title="Posted in" 
+											<?php
+												echo 'value="'.$edit_row['posted_in'].'"';
+											?>
+											class="p-2 rounded border shadow-sm w-full" placeholder="Posted in" />
+									</div>
+							</div>
+
+							<div class="flex justify-around my-4">
+									<div class="flex flex-wrap w-10/12">
+											<input type="text" name="company" title="Company name" 
+											<?php
+												echo 'value="'.$edit_row['company'].'"';
+											?>
+											class="p-2 rounded border shadow-sm w-full" placeholder="Company name" />
+									</div>
+							</div>
+
+							<div class="flex justify-around my-4">
+									<div class="flex flex-wrap w-10/12">
+											<input type="text" name="position" title="Position" 
+											<?php
+												echo 'value="'.$edit_row['position'].'"';
+											?>
+											class="p-2 rounded border shadow-sm w-full" placeholder="Position name" required />
+									</div>
+							</div>
+
+							<div class="flex justify-around my-4">
+									<div class="flex flex-wrap w-10/12">
+											<select name="job_type" id="JT" title="Job type" class="p-2 rounded border shadow-sm w-full pointer" >
+													<option value="none" disabled selected>Job type</option>
+													
+													<option 
+													<?php if ($edit_row["job_type"] == "permanent"){echo "selected";} ?>
+													value="permanent">Permanent</option>
+													
+													<option 
+													<?php if ($edit_row["job_type"] == "intern"){echo "selected";}?>
+													value="intern">Intern</option>
+													
+													<option 
+													<?php if ($edit_row["job_type"] == "contractual"){echo "selected";} ?>
+													value="contractual">Contractual</option>
+													
+													<option 
+													<?php if ($edit_row["job_type"] == "freelance"){echo "selected";} ?>
+													value="freelance">Freelance</option>
+													
+													<option 
+													<?php if ($edit_row["job_type"] == "Remote-Permanent"){echo "selected";} ?>
+													value="Remote-Permanent">Remote Permanent</option>
+													
+													<option 
+													<?php if ($edit_row["job_type"] == "Remote-contract"){echo "selected";} ?>
+													value="Remote-contract">Remote Contract</option>
+													
+													<option 
+													<?php if ($edit_row["job_type"] == "other"){echo "selected";} ?>
+													value="other">Other</option>
+											</select>
+									</div>
+							</div>
+
+							<div class="flex justify-around my-4">
+									<div class="flex flex-wrap w-10/12">
+											<select name="place" id="place" title="Work place" class="p-2 rounded border shadow-sm w-full pointer" >
+													<option value="none" disabled selected>Work place</option>
+													<option 
+													<?php if ($edit_row["place"] == "Addis Ababa"){echo "selected";} ?>
+													value="Addis Ababa">Addis Ababa</option>
+													<option 
+													<?php if ($edit_row["place"] == "Adama"){echo "selected";} ?>
+													value="Adama">Adama</option>
+													<option 
+													<?php if ($edit_row["place"] == "Remote"){echo "selected";} ?>
+													value="Remote">Remote</option>
+													<option 
+													<?php if ($edit_row["place"] == "other"){echo "selected";} ?>
+													value="other">Other</option>
+											</select>
+									</div>
+							</div>
+							
+							<div class="flex justify-around my-4">
+									<div class="flex flex-wrap w-10/12">
+											<input type="text" name="deadline" title="Deadline" 
+											<?php
+												echo 'value="'.$edit_row['deadline'].'"';
+											?>
+											class="p-2 rounded border shadow-sm w-full" placeholder="Deadline" />
+									</div>
+							</div>
+							 
+							
+							<div class="flex justify-around my-4">
+									<div class="flex flex-wrap w-32">
+											<input type="submit" value="Update" class=" w-full h-op-75 p-2 bg-green-600 text-white rounded tracking-wider cursor-pointer" />
+									</div>
+									
+									<div class="flex flex-wrap w-32">
+											<input type="button" onclick="cancelEdit()" value="Cancel" class="w-full h-op-75 p-2 bg-red-500 text-white rounded tracking-wider cursor-pointer" />
+									</div>
+							</div>
+							
+						</form>
+					
+					</div>
+				</div>
+				
+				<?php 
+					}
+				?>
 					
 				<div class="table_wrapper">
 					<table class="table">
@@ -168,7 +304,7 @@
 								<th>Place</th>
 								<th>Deadline</th>
 								<th>Date</th>
-								<th>Option</th>
+								<th>Options</th>
 							</tr>  
 						</thead>
 
@@ -407,8 +543,13 @@
 									echo "<td class='c-green'>" . $row['place'] . "</td>";
 									echo "<td>" . $row['deadline'] . "</td>";
 									echo "<td>" . $formattedDate . "</td>";
-									// echo "<td><a href='/job.vacancy/action_delete.php?id1=".$row['id']."' class='btn-del p-1'>Delete </a> </td>";
-									echo "<td><button onclick='deleteJob(".$row["id"].")' class='btn-del p-1'>Delete </button> </td>";
+									 
+									echo "<td>
+												<div class='flex justify-between'>
+													<button onclick='editJob(".$row["id"].")' class='btn p-2 mx-1'>Edit </button> 
+													<button onclick='deleteJob(".$row["id"].")' class='btn-del p-1'>Delete </button>
+												</div>
+												</td>";
 									echo "</tr>";
 									$number++;
 								}
@@ -416,9 +557,12 @@
 								echo "</table>";
 							}
 						?>
-					
+				</div>
+
 					<h1 class="text-center text-3xl my-2" id="deleted_history">Deleted History</h1>
 					<hr>
+				<div class="deleted-table-div">
+
 					<?php 
 						$result2 =  mysqli_query($conn, "SELECT * FROM deleted_jobs WHERE user_id = '$user_id'");
 						$check = mysqli_fetch_array($result2,MYSQLI_ASSOC);
@@ -438,8 +582,7 @@
 										<th>Deadline</th>
 										<th>Inserted Date</th>
 										<th>Deleted Date</th>
-										<th>Delete</th>
-										<th>Undo</th>
+										<th>Options</th>
 									</tr>  
 								</thead>';
 							echo '<tbody>';
@@ -460,9 +603,14 @@
 								echo "<td class='line-through'>" . $row['deadline'] . "</td>";
 								echo "<td class='line-through'>" . $formattedDate2 . "</td>";
 								echo "<td class='line-through'>" . $formattedDate . "</td>";
-								// echo "<td><a href='/job.vacancy/action_delete_history.php?id=".$row['id']."' class='btn-del p-1'>Delete </a> </td>";
-								echo '<td><button onclick="deleteHistory('.$row['id'].')" class="btn-del p-1">Delete </button> </td>';
-								echo "<td><a href='/job.vacancy/action_undo_delete.php?id=".$row['id']."' class='border bg-green-300 p-1 text-green-600 border-green-600'>Undo </a> </td>";
+								 
+								echo "<td> <div class='flex justify-between'>
+											<a href='/job.vacancy/action_undo_delete.php?id=".$row['id']."' 
+											class='p-2 mx-1 btn'>Undo </a>";
+										
+								echo '<button onclick="deleteHistory('.$row['id'].')" class="btn-del p-1">
+											Delete </button> </div> </td>';
+								
 								echo "</tr>";
 								$number1++;
 							}
@@ -486,6 +634,13 @@
 	<script>
 		function hide(messege_div) {
 			messege_div.style.display = "none";
+		}
+		function editJob(id) {
+			window.open("edit_job.php?id="+id, "_self");
+		}
+		function cancelEdit() {
+			var id = document.getElementById("modal_edit");
+			id.style.display = "none";
 		}
 		function deleteJob(id){
 			if(confirm("Are you sure to delele?")){

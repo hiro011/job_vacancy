@@ -30,10 +30,11 @@
 	$place = $row2['place'];
 	$deadline = $row2['deadline'];
 	$date = $row2['save_date'];
+	$updated_date = date("y/m/d");
 
 	// Performing insert query execution
 	$sql1 = "INSERT INTO jobs VALUES ('$id', '$user_id', '$posted_in','$company', 
-		'$position', '$job_type', '$place', '$deadline', '$date')" ;
+		'$position', '$job_type', '$place', '$deadline', '$date', '$updated_date')" ;
 		
 	if(mysqli_query($conn, $sql1)){
 		// Performing delete query execution 

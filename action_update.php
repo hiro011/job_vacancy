@@ -12,30 +12,33 @@
 			. mysqli_connect_error());
 	}
 	
-	session_start(); 
-	// Taking all 7 values from the form data(input)
-	$user_id = $_SESSION['user_id'];
+	session_start();
+	
+	// Taking all values from the form data(input)
+	$id = $_SESSION['row_id'];
 	$posted_in = $_REQUEST['posted_in'];
 	$company = $_REQUEST['company'];
 	$position = $_REQUEST['position'];
 	$job_type = $_REQUEST['job_type'];
 	$place = $_REQUEST['place'];
 	$deadline = $_REQUEST['deadline'];
-	$date = date("y/m/d");
+	$u_date = date("y/m/d");
 	
-	// Performing insert query execution
-	$sql = "INSERT INTO jobs VALUES ('$id', '$user_id', '$posted_in',
-	'$company', '$position', '$job_type', 
-	'$place', '$deadline', '$date', '$date')" ;
-	 
-	
+	// Performing update query execution
+ 
+	$sql = "UPDATE jobs SET posted_in = '$posted_in',
+					company = '$company', position = '$position', job_type = '$job_type', 
+					place = '$place', deadline = '$deadline', updated_date = '$u_date'
+					WHERE id = $id";
+					
+	// UPDATE `jobs` SET `posted_in` = 'ellens' WHERE `jobs`.`id` = 58;
 	 
 	if(mysqli_query($conn, $sql)){
 
-		$_SESSION['position'] = $_POST['position'];
+		$_SESSION['update'] = true;
 		 
 		mysqli_close($conn);
-		header('Location: insert.php');
+		header('Location: home.php');
 		exit;
 	} else{
 		echo "ERROR: Hush! Sorry $sql. "

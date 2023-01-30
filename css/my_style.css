@@ -1,4 +1,8 @@
 
+.fixed-nav{
+	position: fixed
+}
+
 .btn-del{
 	cursor: pointer; 
 	background-color: orange;
@@ -58,27 +62,34 @@
 	opacity: .7;
 }
 
+.form-container{
+	background: #90cdf4
+}
+
 /* home page table style */
-
 .view_sec{
-	overflow-x: auto;
+	overflow: auto;
 	padding: 1.5rem;
-	margin-left: 1.5rem;
-	margin-right: 1.5rem;
+	margin: 0 1.5rem;
 }
 
-table{
-	display: block; 
-	overflow-x: auto;
+.view_sec .table_wrapper,
+.view_sec .deleted-table-div{
+	overflow: auto;
+	border: 1px solid orange;
 }
+
 th, td{
-		border: 1px solid #3bbfeb;
+	border: 1px solid #3bbfeb;
+}
+th {
+	text-align: center;
 }
  
 .message_alert{
 	cursor: pointer
 }
- 
+
 @media (max-width: 600px) {
 	.view_sec{
 		font-size: .75rem;
@@ -86,9 +97,7 @@ th, td{
 		margin-right: 0;
 		padding: 1rem;
 	}
-	.table_wrapper{
-		border: 1px solid red;
-	} 
+	 
 	.view_sec h1{
 		font-size: 1.25rem
 	}
