@@ -26,8 +26,11 @@
 	$_SESSION['row'] = $row2;
 	$_SESSION['row_id'] = $job_id;
 
-  $_SESSION['searchResult']=$_SESSION['searchResult2'];
-  $_SESSION['postsearch']=$_SESSION['postsearch2'];
+  if(isset($_SESSION['searchResult2'])){
+    $_SESSION['searchResult']=$_SESSION['searchResult2'];
+    $_SESSION['postsearch']=$_SESSION['postsearch2'];
+  }
+
 
 	mysqli_close($conn);
 
