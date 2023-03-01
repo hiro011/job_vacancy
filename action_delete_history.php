@@ -30,5 +30,5 @@
 		echo "ERROR: Hush! Sorry $sql. "
 			. mysqli_error($conn);
 	}
-	
+
 ?>
