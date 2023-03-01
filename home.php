@@ -45,6 +45,7 @@
 			<?php 
 				if($user != 'Guest'){
 					echo '<a class="mx-3 nav-a active" href="/job.vacancy/home.php">Home</a>';
+					echo '<a class="mx-3 nav-a" href="/job.vacancy/home.php#deleted_history">Deleted</a>';
 					echo '<a class="mx-3 nav-a" href="/job.vacancy/insert.php">New</a>';
 				}
 			?>
@@ -132,7 +133,7 @@
 				
 				<form action="action_search.php" method="post" class="flex justify-center my-3">
 					<a href="/job.vacancy/home.php" class="btn-del p-1">clear</a>
-					<input type="text" name="search" class="search" 
+					<input type="search" name="search" class="search" 
 						<?php 
 							// set the input value to searched key word
 							// if it searched
@@ -405,7 +406,7 @@
 											echo "<td>";
 												// echo all words before the searched key word
 												if ($rowWord3I !== 0){
-													echo '<span class="c-green">';
+													echo '<span class="text-green-600">';
 													for ($i = 0; $i < $rowWord3I; $i++) {
 														echo $rowWord3[$i];
 													}
@@ -419,7 +420,7 @@
 												echo '</span>';
 												// echo all word after searched key if exist
 												if (($rowWord3I + $sL) < strlen($rowWord3)){
-													echo '<span class="c-green">';
+													echo '<span class="text-green-600">';
 													for ($i = ($rowWord3I + $sL); $i < strlen($rowWord3); $i++) {
 														echo $rowWord3[$i];
 													}
@@ -427,7 +428,7 @@
 												}
 											echo "</td>";
 
-										} else echo "<td class='c-green'>" . $row['position'] . "</td>";
+										} else echo "<td class='text-green-600'>" . $row['position'] . "</td>";
 
 										// the 4th column --------
 										$rowWord4 = $row['job_type']; 
@@ -463,7 +464,11 @@
 											echo "<td>";
 												// echo all words before the searched key word if exist
 												if ($rowWord5I !== 0){
-													echo '<span class="c-green">';
+													if($row['place'] === 'Adama'){
+														echo '<span class="text-green-600">';
+													} else {
+														echo '<span>';
+													}
 													for ($i = 0; $i < $rowWord5I; $i++) {
 														echo $rowWord5[$i];
 													}
@@ -476,8 +481,12 @@
 												}
 												echo '</span>';
 												// echo all word after searched key if exist
-												if (($rowWord5I + $sL) < strlen($rowWord5)){ 
-													echo '<span class="c-green">';
+												if (($rowWord5I + $sL) < strlen($rowWord5)){
+													if($row['place'] === 'Adama'){
+														echo '<span class="text-green-600">';
+													} else {
+														echo '<span>';
+													}
 													for ($i = ($rowWord5I + $sL); $i < strlen($rowWord5); $i++) {
 														echo $rowWord5[$i];
 													}
@@ -485,7 +494,15 @@
 												}
 											echo "</td>";
 
-										} else echo "<td class='c-green'>" . $row['place'] . "</td>";
+										} else { 
+												echo "<td>";
+												if($row['place'] === 'Adama'){
+													echo '<span class="text-green-600"> '. $row['place'] .'</span>';
+												} else {
+													echo '<span>'. $row['place'] .'</span>';
+												} 
+												echo "</td>";
+											} 
 										
 										// the 6th column --------
 										$rowWord6 = $row['deadline']; 
@@ -515,9 +532,14 @@
 										} else echo "<td>" . $row['deadline'] . "</td>";
 										
 										echo "<td>" . $formattedDate . "</td>";
-										// echo "<td><a href='/job.vacancy/action_delete.php?id=".$row['id']."' class='btn-del p-1'>Delete </a> </td>";
-										echo "<td><button onclick='deleteJob(".$row["id"].")' class='btn-del p-1'>Delete </button> </td>";
-										
+										// echo "<td><button onclick='deleteJob(".$row["id"].")' class='btn-del p-1'>Delete </button> </td>";
+										 
+										echo "<td>
+											<div class='flex justify-between'>
+												<button onclick='editJob(".$row["id"].")' class='btn p-2 mx-1'>Edit </button> 
+												<button onclick='deleteJob(".$row["id"].")' class='btn-del p-1'>Delete </button>
+											</div>
+											</td>";
 										echo "</tr>";
 										$number++;
 									} 
@@ -538,9 +560,13 @@
 									echo "<td>" . $row['id'] ."</td>"; // id
 									echo "<td>" . $row['posted_in'] . "</td>";
 									echo "<td>" . $row['company'] . "</td>";
-									echo "<td class='c-green'>" . $row['position'] . "</td>";
+									echo "<td class='text-green-600'>" . $row['position'] . "</td>";
 									echo "<td>" . $row['job_type'] . "</td>";
-									echo "<td class='c-green'>" . $row['place'] . "</td>";
+									if($row['place'] === 'Adama'){
+										echo "<td class='text-green-600'>" . $row['place'] . "</td>";
+									} else {
+										echo "<td>" . $row['place'] . "</td>";
+									}
 									echo "<td>" . $row['deadline'] . "</td>";
 									echo "<td>" . $formattedDate . "</td>";
 									 
@@ -597,9 +623,9 @@
 								echo "<td>" . $row['job_id'] ."</td>"; // id
 								echo "<td class='line-through'>" . $row['posted_in'] . "</td>";
 								echo "<td class='line-through'>" . $row['company'] . "</td>";
-								echo "<td class='c-green line-through'>" . $row['position'] . "</td>";
+								echo "<td class='line-through'>" . $row['position'] . "</td>";
 								echo "<td class='line-through'>" . $row['job_type'] . "</td>";
-								echo "<td class='c-green line-through'>" . $row['place'] . "</td>";
+								echo "<td class='line-through'>" . $row['place'] . "</td>";
 								echo "<td class='line-through'>" . $row['deadline'] . "</td>";
 								echo "<td class='line-through'>" . $formattedDate2 . "</td>";
 								echo "<td class='line-through'>" . $formattedDate . "</td>";
@@ -623,6 +649,9 @@
 					?>
 				</div>
 				<?php
+					 $_SESSION['searchResult2']=$_SESSION['searchResult'];
+					 $_SESSION['postsearch2']=$_SESSION['postsearch'];
+           
 					 unset($_SESSION['searchResult']);
 					 unset($_SESSION['postsearch']);
 				?>
