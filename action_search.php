@@ -27,40 +27,39 @@
     ]
   );
 
-
   $user_id = $_SESSION['user_id'];
   // (C) SEARCH
   if ($_POST["search"] == '') {
     header('Location: home.php');
     exit;
-  } else {
+  } else { 
     if (isset($_SESSION['sort']) && ($_SESSION['sort'] === '1')) {
       $stmt = $pdo->prepare("SELECT * FROM `jobs` WHERE 
-                  `user_id` = ? AND `posted_in` LIKE ? OR 
-                  `user_id` = ? AND `company` LIKE ? OR 
-                  `user_id` = ? AND `position` LIKE ? OR 
-                  `user_id` = ? AND `job_type` LIKE ? OR 
-                  `user_id` = ? AND `place` LIKE ? OR 
-                  `user_id` = ? AND `deadline` LIKE ?
-                  ORDER BY `id` ASC");
-    } else {
+              `user_id` = ? AND (`posted_in` LIKE ? OR 
+              `company` LIKE ? OR `position` LIKE ? OR 
+              `job_type` LIKE ? OR `place` LIKE ? OR 
+              `deadline` LIKE ? ) ORDER BY `id` ASC");
+    } elseif (isset($_SESSION['sort']) && ($_SESSION['sort'] === '2')) {
       $stmt = $pdo->prepare("SELECT * FROM `jobs` WHERE 
-                  `user_id` = ? AND `posted_in` LIKE ? OR 
-                  `user_id` = ? AND `company` LIKE ? OR 
-                  `user_id` = ? AND `position` LIKE ? OR 
-                  `user_id` = ? AND `job_type` LIKE ? OR 
-                  `user_id` = ? AND `place` LIKE ? OR 
-                  `user_id` = ? AND `deadline` LIKE ?
-                  ORDER BY `id` DESC");
+              `user_id` = ? AND (`posted_in` LIKE ? OR 
+              `company` LIKE ? OR `position` LIKE ? OR 
+              `job_type` LIKE ? OR `place` LIKE ? OR 
+              `deadline` LIKE ? ) ORDER BY `accepted` DESC");
+    } else { 
+      $stmt = $pdo->prepare("SELECT * FROM `jobs` WHERE 
+              `user_id` = ? AND (`posted_in` LIKE ? OR 
+              `company` LIKE ? OR `position` LIKE ? OR 
+              `job_type` LIKE ? OR `place` LIKE ? OR 
+              `deadline` LIKE ? ) ORDER BY `id` DESC");
     }
 
     $stmt->execute([
       $user_id, "%" . $_POST["search"] . "%",
-      $user_id, "%" . $_POST["search"] . "%",
-      $user_id, "%" . $_POST["search"] . "%",
-      $user_id, "%" . $_POST["search"] . "%",
-      $user_id, "%" . $_POST["search"] . "%",
-      $user_id, "%" . $_POST["search"] . "%"
+      "%" . $_POST["search"] . "%",
+      "%" . $_POST["search"] . "%",
+      "%" . $_POST["search"] . "%",
+      "%" . $_POST["search"] . "%",
+      "%" . $_POST["search"] . "%"
     ]);
 
     $result = $stmt->fetchAll();
