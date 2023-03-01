@@ -45,7 +45,8 @@
 			$_SESSION['delete'] = $job_id;
 			
 			mysqli_close($conn);
-			header('Location: home.php');
+			// header('Location: home.php');
+			echo " <script> history.go(-1); </script> ";
 			exit;
 		} 
 		else{

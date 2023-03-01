@@ -42,10 +42,7 @@
 } 
 .text-center{
 	text-align: center;
-}
-.c-green{
-	color: green
-}
+} 
 .search{
 	border: 2px solid lightblue;
 	border-radius: 3px;
@@ -78,8 +75,11 @@
 	overflow: auto;
 	border: 1px solid orange;
 }
+.deleted-table-div {
+	font-size: .9rem
+}
 
-th, td{
+th, td {
 	border: 1px solid #3bbfeb;
 }
 th {
