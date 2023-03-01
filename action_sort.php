@@ -18,13 +18,15 @@
 	}
 
 	$user_id = $_SESSION['user_id'];
-		$result =  mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id' ");
 
-	if($_POST['sort'] === '1'){
+	$result =  mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id' ");
+
+	if($_POST['sort'] === '1' || $_POST['sort'] === '2'){
 		$_SESSION['sortResult'] =  true;
 	} else{
 		unset($_SESSION['sortResult']);
 	}
+
 	$_SESSION['sort'] = $_POST['sort'];
 
 	mysqli_close($conn);

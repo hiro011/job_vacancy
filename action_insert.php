@@ -19,12 +19,13 @@
 	$company = $_REQUEST['company'];
 	$position = $_REQUEST['position'];
 	$job_type = $_REQUEST['job_type'];
+  $accepted = 0;
 	$place = $_REQUEST['place'];
 	$deadline = $_REQUEST['deadline'];
 	$date = date("y/m/d");
 	
 	// Performing insert query execution
-	$sql = "INSERT INTO jobs VALUES ('$id', '$user_id', '$posted_in',
+	$sql = "INSERT INTO jobs VALUES ('$id', '$user_id', '$accepted', '$posted_in',
 	'$company', '$position', '$job_type', 
 	'$place', '$deadline', '$date', '$date')" ;
 	 

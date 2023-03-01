@@ -157,6 +157,12 @@
                                 echo "selected";
                               }
                               ?>> Oldest </option>
+
+            <option value='2' <?php
+                              if (isset($_SESSION['sort']) && ($_SESSION['sort'] === '2')) {
+                                echo "selected";
+                              }
+                              ?>> Accepted </option>
           </select>
           <input type="submit" value="Sort" class="rounded py-2 px-3 bg-blue-300">
         </form>
@@ -254,9 +260,11 @@
 
                 <div class="flex justify-around my-4">
                   <div class="flex flex-wrap w-10/12">
-                    <input type="text" name="deadline" title="Deadline" <?php
-                                                                        echo 'value="' . $edit_row['deadline'] . '"';
-                                                                        ?> class="p-2 rounded border shadow-sm w-full" placeholder="Deadline" />
+                    <input type="text" name="deadline" title="Deadline" 
+                      <?php
+                        echo 'value="' . $edit_row['deadline'] . '"';
+                      ?> 
+                      class="p-2 rounded border shadow-sm w-full" placeholder="Deadline" />
                   </div>
                 </div>
 
@@ -310,14 +318,19 @@
               $user_id = $_SESSION['user_id'];
 
               if (isset($_SESSION['sortResult'])) {
-                $result = mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id'");
+                if ($_SESSION['sort'] == 1) {
+                  $result = mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id' ORDER BY id ASC");
+                }  
+                
+                if ($_SESSION['sort'] == 2) {
+                  $result = mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id' ORDER BY accepted DESC");
+                }
               } else {
                 $result =  mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id' ORDER BY id DESC");
               }
 
-              $number = 1;
-
               if (isset($_SESSION['searchResult'])) { /* check if search button/input is clicked */
+                $number = 1;
 
                 $result = $_SESSION['searchResult'];
                 $_POST["search"] = $_SESSION['postsearch'];
@@ -326,8 +339,17 @@
                   foreach ($result as $row) {
                     $formattedDate = date("d-M-Y", strtotime($row["date"]));
                     $sL = strlen($_POST["search"]); // length of searched key
-
-                    echo "<tr>";
+                   
+                    if ($row['accepted'] == 1) {
+                      echo "<tr class='bg-blue-200'>";
+                    } else {
+                      if($number % 2 == 0){
+                        echo "<tr>";
+                      }
+                      else{
+                        echo "<tr class='bg-gray-100'>";
+                      }
+                    }  
 
                     // the numbering column --------
                     echo "<td>" . $number . "</td>"; // incrimented number
@@ -517,9 +539,16 @@
                     // echo "<td><button onclick='deleteJob(".$row["id"].")' class='btn-del p-1'>Delete </button> </td>";
 
                     echo "<td>
-											<div class='flex justify-between'>
-												<button onclick='editJob(" . $row["id"] . ")' class='btn p-2 mx-1'>Edit </button> 
-												<button onclick='deleteJob(" . $row["id"] . ")' class='btn-del p-1'>Delete </button>
+											<div class='flex justify-between'>";
+                  
+                      if ($row['accepted'] == 1) {
+                        echo	"<button onclick='declineJob(" . $row["id"] . ")' class='btn p-1 mx-1'>Decline </button> ";
+                      } else {
+                        echo	"<button onclick='acceptedJob(" . $row["id"] . ")' class='btn p-1 mx-1'>Accepted </button> ";
+                      }
+    
+                    echo "<button onclick='editJob(" . $row["id"] . ")' class='btn p-1 mx-1'>Edit </button> 
+											<button onclick='deleteJob(" . $row["id"] . ")' class='btn-del p-1'>Delete </button>
 											</div>
 											</td>";
                     echo "</tr>";
@@ -533,9 +562,21 @@
                 echo "</tbody>";
                 echo "</table>";
               } else {
+                $number = 1;
+
                 while ($row = mysqli_fetch_array($result)) {
                   $formattedDate = date("d-M", strtotime($row["date"]));
-                  echo "<tr>";
+                  
+                  if ($row['accepted'] == 1) {
+                    echo "<tr class='bg-blue-200'>";
+                  } else {
+                    if($number % 2 == 0){
+                      echo "<tr>";
+                    }
+                    else{
+                      echo "<tr class='bg-gray-100'>";
+                    }
+                  }
                   echo "<td>" . $number . "</td>"; // incrimented number
                   echo "<td>" . $row['id'] . "</td>"; // id
                   echo "<td>" . $row['posted_in'] . "</td>";
@@ -551,11 +592,19 @@
                   echo "<td>" . $formattedDate . "</td>";
 
                   echo "<td>
-												<div class='flex justify-between'>
-													<button onclick='editJob(" . $row["id"] . ")' class='btn p-2 mx-1'>Edit </button> 
-													<button onclick='deleteJob(" . $row["id"] . ")' class='btn-del p-1'>Delete </button>
+												<div class='flex justify-between'> ";
+                  
+                  if ($row['accepted'] == 1) {
+                    echo	"<button onclick='declineJob(" . $row["id"] . ")' class='btn p-1 mx-1'>Decline </button> ";
+                  } else {
+                    echo	"<button onclick='acceptedJob(" . $row["id"] . ")' class='btn p-1 mx-1'>Accepted </button> ";
+                  }
+
+                  echo "<button onclick='editJob(" . $row["id"] . ")' class='btn p-1 mx-1'>Edit </button> 
+                        <button onclick='deleteJob(" . $row["id"] . ")' class='btn-del p-1'>Delete </button>
 												</div>
 												</td>";
+
                   echo "</tr>";
                   $number++;
                 }
@@ -598,7 +647,12 @@
             while ($row = mysqli_fetch_array($result2)) {
               $formattedDate = date("d-M", strtotime($row["date"]));
               $formattedDate2 = date("d-M", strtotime($row["save_date"]));
-              echo "<tr>";
+              if($number1 % 2 == 0){
+                echo "<tr>";
+              }
+              else{
+                echo "<tr class='bg-gray-100'>";
+              }
               echo "<td>" . $number1 . "</td>"; // incrimented number
               echo "<td>" . $row['job_id'] . "</td>"; // id
               echo "<td class='line-through'>" . $row['posted_in'] . "</td>";
@@ -612,7 +666,7 @@
 
               echo "<td> <div class='flex justify-between'>
 											<a href='/job.vacancy/action_undo_delete.php?id=" . $row['id'] . "' 
-											class='p-2 mx-1 btn'>Undo </a>";
+											class='p-1 mx-1 btn'>Undo </a>";
 
               echo '<button onclick="deleteHistory(' . $row['id'] . ')" class="btn-del p-1">
 											Delete </button> </div> </td>';
@@ -631,6 +685,9 @@
         if (isset($_SESSION['searchResult'])) {
           $_SESSION['searchResult2'] = $_SESSION['searchResult'];
           $_SESSION['postsearch2'] = $_SESSION['postsearch'];
+        } else {
+          unset($_SESSION['searchResult2']);
+          unset($_SESSION['postsearch2']);
         }
 
         unset($_SESSION['searchResult']);
@@ -648,6 +705,14 @@
 
     function editJob(id) {
       window.open("edit_job.php?id=" + id, "_self");
+    }
+
+    function acceptedJob(id) {
+      window.open("accepted_job.php?id=" + id + "&value=1", "_self");
+    }
+
+    function declineJob(id) {
+      window.open("accepted_job.php?id=" + id + "&value=0", "_self");
     }
 
     function cancelEdit() {
