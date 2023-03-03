@@ -662,7 +662,7 @@
               echo "<td class='line-through'>" . $row['place'] . "</td>";
               echo "<td class='line-through'>" . $row['deadline'] . "</td>";
               echo "<td class='line-through'>" . $formattedDate2 . "</td>";
-              echo "<td class='line-through'>" . $formattedDate . "</td>";
+              echo "<td>" . $formattedDate . "</td>";
 
               echo "<td> <div class='flex justify-between'>
 											<a href='/job.vacancy/action_undo_delete.php?id=" . $row['id'] . "' 
