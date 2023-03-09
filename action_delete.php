@@ -6,7 +6,7 @@
 // password => empty
 // database name => jobs_vacancy
 
-$conn = mysqli_connect("localhost", "root", "", "jobs_vacancy");
+$conn = mysqli_connect("localhost", "root", "rootadmin", "jobs_vacancy");
 
 // Check connection
 if ($conn === false) {
@@ -23,6 +23,7 @@ $result =  mysqli_query($conn, "SELECT * FROM jobs WHERE user_id = '$user_id' an
 $row2 = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
 $user_id = $row2['user_id'];
+$accepted = $row2['accepted'];
 $posted_in = $row2['posted_in'];
 $company = $row2['company'];
 $position = $row2['position'];
@@ -33,9 +34,10 @@ $save_date = $row2['date'];
 $date = date("y/m/d");
 
 // Performing insert query execution
-$sql1 = "INSERT INTO deleted_jobs VALUES ('$id', '$job_id', '$user_id', '$posted_in',
+$sql1 = "INSERT INTO deleted_jobs (accepted, job_id, user_id, posted_in, company,
+	position, job_type, place, deadline, save_date) VALUES ('$accepted', '$job_id', '$user_id', '$posted_in',
 		'$company', '$position', '$job_type', '$place', '$deadline', 
-		'$save_date', '$date')";
+		'$save_date')";
 
 if (mysqli_query($conn, $sql1)) {
   // Performing delete query execution 

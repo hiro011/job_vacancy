@@ -4,7 +4,7 @@
 	// username => root
 	// password => empty
 	// database name => jobs_vacancy
-	$conn = mysqli_connect("localhost", "root", "", "jobs_vacancy");
+	$conn = mysqli_connect("localhost", "root", "rootadmin", "jobs_vacancy");
 	
 	// Check connection
 	if($conn === false){
@@ -23,11 +23,12 @@
 	$place = $_REQUEST['place'];
 	$deadline = $_REQUEST['deadline'];
 	$date = date("y/m/d");
+	$id = NULL;
 	
 	// Performing insert query execution
-	$sql = "INSERT INTO jobs VALUES ('$id', '$user_id', '$accepted', '$posted_in',
-	'$company', '$position', '$job_type', 
-	'$place', '$deadline', '$date', '$date')" ;
+	$sql = "INSERT INTO jobs ( user_id, posted_in, company,
+	position, job_type, place, deadline) VALUES ( '$user_id', '$posted_in',
+	'$company', '$position', '$job_type', '$place', '$deadline')" ;
 	 
 	
 	 

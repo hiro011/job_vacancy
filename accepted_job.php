@@ -6,7 +6,7 @@
   // password => empty
   // database name => jobs_vacancy
 
-  $conn = mysqli_connect("localhost", "root", "", "jobs_vacancy");
+  $conn = mysqli_connect("localhost", "root", "rootadmin", "jobs_vacancy");
 
   // Check connection
   if ($conn === false) {

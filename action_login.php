@@ -12,7 +12,7 @@
   define("DB_USER", "root");
   define("DB_PASSWORD", "");
 
-  $conn = mysqli_connect("localhost", "root", "", "jobs_vacancy");
+  $conn = mysqli_connect("localhost", "root", "rootadmin", "jobs_vacancy");
 
   session_start();
   $username = $_POST['username'];
